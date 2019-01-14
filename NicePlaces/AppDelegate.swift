@@ -15,8 +15,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
+	{
+		let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Place")
+		do
+		{
+			let result = try persistentContainer.viewContext.fetch(request)
+			if result.count == 0
+			{
+				guard let path = Bundle.main.path(forResource: "DefaultPlaces", ofType: "json") else {return false}
+				do
+				{
+					let data = try Data(contentsOf: URL(fileURLWithPath: path))
+					let jsonResult = try JSONSerialization.jsonObject(with: data)
+					guard let dictionary = jsonResult as? Dictionary<String, Any> else {return false}
+					persistentContainer.performBackgroundTask { context in
+						do
+						{
+							try Place.saveDefaultPlaces(dictionaty: dictionary, context: context)
+						}
+						catch
+						{
+							print("Core Data is Failed")
+						}
+					}
+				}
+				catch
+				{
+					print("cannot read file")
+				}
+			}
+		}
+		catch
+		{
+			
+		}
 		return true
 	}
 

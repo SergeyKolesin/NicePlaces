@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2944B3E54A2C3F711D284EA5 /* Pods_NicePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A291E82F2DAFDC275A4980CD /* Pods_NicePlaces.framework */; };
+		5D57B289816495526C162CD5 /* Pods_NicePlacesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50BF0637D56DA409EFE3414 /* Pods_NicePlacesUITests.framework */; };
+		ED760AB30144B8DFAC5AF2FA /* Pods_NicePlacesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4D2A56A34D744A78FE580A /* Pods_NicePlacesTests.framework */; };
+		FE72032721EC76D100BC4C0B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72032621EC76D100BC4C0B /* MapViewController.swift */; };
+		FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72032821EC772A00BC4C0B /* MapViewModel.swift */; };
+		FE72032B21EC77C100BC4C0B /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72032A21EC77C100BC4C0B /* PlaceListViewController.swift */; };
+		FE72032D21EC77D300BC4C0B /* PlaceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72032C21EC77D300BC4C0B /* PlaceListViewModel.swift */; };
+		FE72032F21ECA1B000BC4C0B /* DefaultPlaces.json in Resources */ = {isa = PBXBuildFile; fileRef = FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */; };
+		FE72033121ECA53800BC4C0B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033021ECA53800BC4C0B /* Place.swift */; };
 		FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C721E887E4009F3F05 /* AppDelegate.swift */; };
 		FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C921E887E4009F3F05 /* ViewController.swift */; };
 		FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58CB21E887E4009F3F05 /* Main.storyboard */; };
@@ -35,6 +44,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B065064DBF14C1A2C544957 /* Pods-NicePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlaces/Pods-NicePlaces.release.xcconfig"; sourceTree = "<group>"; };
+		7A78ADAE738E4FCB781E1DA2 /* Pods-NicePlacesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlacesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlacesUITests/Pods-NicePlacesUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7F4D2A56A34D744A78FE580A /* Pods_NicePlacesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NicePlacesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D072FAD197A2EFD3BC75DAF /* Pods-NicePlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlaces/Pods-NicePlaces.debug.xcconfig"; sourceTree = "<group>"; };
+		A291E82F2DAFDC275A4980CD /* Pods_NicePlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NicePlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1A9447C543C2215928823A7 /* Pods-NicePlacesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlacesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlacesTests/Pods-NicePlacesTests.release.xcconfig"; sourceTree = "<group>"; };
+		E50BF0637D56DA409EFE3414 /* Pods_NicePlacesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NicePlacesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F29411FFD665D36081D4E477 /* Pods-NicePlacesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlacesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlacesTests/Pods-NicePlacesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FAC1084A7A42CFB1272D59E9 /* Pods-NicePlacesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NicePlacesUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NicePlacesUITests/Pods-NicePlacesUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FE72032621EC76D100BC4C0B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FE72032821EC772A00BC4C0B /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		FE72032A21EC77C100BC4C0B /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
+		FE72032C21EC77D300BC4C0B /* PlaceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewModel.swift; sourceTree = "<group>"; };
+		FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DefaultPlaces.json; sourceTree = "<group>"; };
+		FE72033021ECA53800BC4C0B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		FECA58C421E887E4009F3F05 /* NicePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NicePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58C721E887E4009F3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FECA58C921E887E4009F3F05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2944B3E54A2C3F711D284EA5 /* Pods_NicePlaces.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED760AB30144B8DFAC5AF2FA /* Pods_NicePlacesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +96,61 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D57B289816495526C162CD5 /* Pods_NicePlacesUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0232D2310B72964FC7D07DE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A291E82F2DAFDC275A4980CD /* Pods_NicePlaces.framework */,
+				7F4D2A56A34D744A78FE580A /* Pods_NicePlacesTests.framework */,
+				E50BF0637D56DA409EFE3414 /* Pods_NicePlacesUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		246E3028B1297B82B5E2A4BF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9D072FAD197A2EFD3BC75DAF /* Pods-NicePlaces.debug.xcconfig */,
+				4B065064DBF14C1A2C544957 /* Pods-NicePlaces.release.xcconfig */,
+				F29411FFD665D36081D4E477 /* Pods-NicePlacesTests.debug.xcconfig */,
+				C1A9447C543C2215928823A7 /* Pods-NicePlacesTests.release.xcconfig */,
+				FAC1084A7A42CFB1272D59E9 /* Pods-NicePlacesUITests.debug.xcconfig */,
+				7A78ADAE738E4FCB781E1DA2 /* Pods-NicePlacesUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FE72032321EC767600BC4C0B /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				FE72032621EC76D100BC4C0B /* MapViewController.swift */,
+				FE72032821EC772A00BC4C0B /* MapViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		FE72032421EC767E00BC4C0B /* Place List */ = {
+			isa = PBXGroup;
+			children = (
+				FE72032A21EC77C100BC4C0B /* PlaceListViewController.swift */,
+				FE72032C21EC77D300BC4C0B /* PlaceListViewModel.swift */,
+			);
+			path = "Place List";
+			sourceTree = "<group>";
+		};
+		FE72032521EC769300BC4C0B /* Place Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Place Details";
+			sourceTree = "<group>";
+		};
 		FECA58BB21E887E4009F3F05 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +158,8 @@
 				FECA58DE21E887E5009F3F05 /* NicePlacesTests */,
 				FECA58E921E887E5009F3F05 /* NicePlacesUITests */,
 				FECA58C521E887E4009F3F05 /* Products */,
+				246E3028B1297B82B5E2A4BF /* Pods */,
+				0232D2310B72964FC7D07DE1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +176,9 @@
 		FECA58C621E887E4009F3F05 /* NicePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				FE72032521EC769300BC4C0B /* Place Details */,
+				FE72032421EC767E00BC4C0B /* Place List */,
+				FE72032321EC767600BC4C0B /* Map */,
 				FECA58C721E887E4009F3F05 /* AppDelegate.swift */,
 				FECA58C921E887E4009F3F05 /* ViewController.swift */,
 				FECA58CB21E887E4009F3F05 /* Main.storyboard */,
@@ -106,6 +186,8 @@
 				FECA58D321E887E5009F3F05 /* LaunchScreen.storyboard */,
 				FECA58D621E887E5009F3F05 /* Info.plist */,
 				FECA58CE21E887E4009F3F05 /* NicePlaces.xcdatamodeld */,
+				FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */,
+				FE72033021ECA53800BC4C0B /* Place.swift */,
 			);
 			path = NicePlaces;
 			sourceTree = "<group>";
@@ -135,9 +217,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FECA58EF21E887E5009F3F05 /* Build configuration list for PBXNativeTarget "NicePlaces" */;
 			buildPhases = (
+				5B05B3F1F21CC0666CCB5988 /* [CP] Check Pods Manifest.lock */,
 				FECA58C021E887E4009F3F05 /* Sources */,
 				FECA58C121E887E4009F3F05 /* Frameworks */,
 				FECA58C221E887E4009F3F05 /* Resources */,
+				7D7E71E4E715B00727C9B1B4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +236,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FECA58F221E887E5009F3F05 /* Build configuration list for PBXNativeTarget "NicePlacesTests" */;
 			buildPhases = (
+				AADB6E7698C0F6543B0337B2 /* [CP] Check Pods Manifest.lock */,
 				FECA58D721E887E5009F3F05 /* Sources */,
 				FECA58D821E887E5009F3F05 /* Frameworks */,
 				FECA58D921E887E5009F3F05 /* Resources */,
@@ -170,6 +255,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FECA58F521E887E5009F3F05 /* Build configuration list for PBXNativeTarget "NicePlacesUITests" */;
 			buildPhases = (
+				657C64D2989AE5D11874A061 /* [CP] Check Pods Manifest.lock */,
 				FECA58E221E887E5009F3F05 /* Sources */,
 				FECA58E321E887E5009F3F05 /* Frameworks */,
 				FECA58E421E887E5009F3F05 /* Resources */,
@@ -235,6 +321,7 @@
 				FECA58D521E887E5009F3F05 /* LaunchScreen.storyboard in Resources */,
 				FECA58D221E887E5009F3F05 /* Assets.xcassets in Resources */,
 				FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */,
+				FE72032F21ECA1B000BC4C0B /* DefaultPlaces.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,14 +341,98 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5B05B3F1F21CC0666CCB5988 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NicePlaces-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		657C64D2989AE5D11874A061 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NicePlacesUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7D7E71E4E715B00727C9B1B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NicePlaces/Pods-NicePlaces-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NicePlaces/Pods-NicePlaces-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AADB6E7698C0F6543B0337B2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NicePlacesTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FECA58C021E887E4009F3F05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE72032B21EC77C100BC4C0B /* PlaceListViewController.swift in Sources */,
 				FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */,
+				FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */,
+				FE72033121ECA53800BC4C0B /* Place.swift in Sources */,
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
+				FE72032D21EC77D300BC4C0B /* PlaceListViewModel.swift in Sources */,
 				FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */,
+				FE72032721EC76D100BC4C0B /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +605,7 @@
 		};
 		FECA58F021E887E5009F3F05 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D072FAD197A2EFD3BC75DAF /* Pods-NicePlaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -452,6 +624,7 @@
 		};
 		FECA58F121E887E5009F3F05 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B065064DBF14C1A2C544957 /* Pods-NicePlaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -470,6 +643,7 @@
 		};
 		FECA58F321E887E5009F3F05 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F29411FFD665D36081D4E477 /* Pods-NicePlacesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -491,6 +665,7 @@
 		};
 		FECA58F421E887E5009F3F05 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1A9447C543C2215928823A7 /* Pods-NicePlacesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +687,7 @@
 		};
 		FECA58F621E887E5009F3F05 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAC1084A7A42CFB1272D59E9 /* Pods-NicePlacesUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +708,7 @@
 		};
 		FECA58F721E887E5009F3F05 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A78ADAE738E4FCB781E1DA2 /* Pods-NicePlacesUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
