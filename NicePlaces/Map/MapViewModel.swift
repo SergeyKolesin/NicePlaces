@@ -25,35 +25,15 @@ class MapViewModel: NSObject
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.requestWhenInUseAuthorization()
-		PlaceManager.shared.places.asObservable().subscribe { (event) in
-			if let value = event.element
-			{
-				self.places.value = value
-			}
-		}.disposed(by: disposeBag)
+		PlaceManager.shared.places.asObservable()
+			.bind(to: places)
+			.disposed(by: disposeBag)
 	}
 	
 	func startUpdatingLocation()
 	{
 		locationManager.startUpdatingLocation()
-//		fetchPlaceList()
 	}
-	
-//	func fetchPlaceList()
-//	{
-//		guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-//		let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Place")
-//		do
-//		{
-//			places.value = try appDelegate.persistentContainer.viewContext.fetch(request).compactMap({ item -> Place? in
-//				item as? Place
-//			})
-//		}
-//		catch
-//		{
-//			print("Core Data is Failed")
-//		}
-//	}
 }
 
 extension MapViewModel: CLLocationManagerDelegate
