@@ -38,6 +38,15 @@ extension Place
 			throw PlaceError.coreDataIssue
 		}
 	}
+	
+	class func fetchPlace(context: NSManagedObjectContext, title: String) -> Place?
+	{
+		let request: NSFetchRequest<Place> = Place.fetchRequest()
+		let pred = NSPredicate(format: "title == %@", title)
+		request.predicate = pred
+		let result = try? context.fetch(request)
+		return result?.first
+	}
 }
 
 

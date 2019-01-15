@@ -64,6 +64,23 @@ class PlaceManager: NSObject
 			}
 		}
 	}
+	
+	func deletePlace(for index: Int)
+	{
+		if index >= 0 && index < places.value.count
+		{
+			let place = places.value[index]
+			guard let title = place.title else {return}
+			
+			persistentContainer.performBackgroundTask { context in
+				if let place = Place.fetchPlace(context: context, title: title)
+				{
+					context.delete(place)
+					try? context.save()
+				}
+			}
+		}
+	}
 }
 
 extension PlaceManager: NSFetchedResultsControllerDelegate

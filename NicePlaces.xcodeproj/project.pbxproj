@@ -18,6 +18,9 @@
 		FE72033121ECA53800BC4C0B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033021ECA53800BC4C0B /* Place.swift */; };
 		FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */; };
 		FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033521EE08A500BC4C0B /* LocationManager.swift */; };
+		FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033721EE109D00BC4C0B /* PlaceCell.swift */; };
+		FE7EA0A021EE17DA000DD51E /* PlaceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA09F21EE17DA000DD51E /* PlaceCellModel.swift */; };
+		FE7EA0A321EE235E000DD51E /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A221EE235E000DD51E /* String+Helper.swift */; };
 		FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C721E887E4009F3F05 /* AppDelegate.swift */; };
 		FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C921E887E4009F3F05 /* ViewController.swift */; };
 		FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58CB21E887E4009F3F05 /* Main.storyboard */; };
@@ -63,6 +66,9 @@
 		FE72033021ECA53800BC4C0B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceManager.swift; sourceTree = "<group>"; };
 		FE72033521EE08A500BC4C0B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		FE72033721EE109D00BC4C0B /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
+		FE7EA09F21EE17DA000DD51E /* PlaceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCellModel.swift; sourceTree = "<group>"; };
+		FE7EA0A221EE235E000DD51E /* String+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helper.swift"; sourceTree = "<group>"; };
 		FECA58C421E887E4009F3F05 /* NicePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NicePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58C721E887E4009F3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FECA58C921E887E4009F3F05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 			children = (
 				FE72032A21EC77C100BC4C0B /* PlaceListViewController.swift */,
 				FE72032C21EC77D300BC4C0B /* PlaceListViewModel.swift */,
+				FE72033721EE109D00BC4C0B /* PlaceCell.swift */,
+				FE7EA09F21EE17DA000DD51E /* PlaceCellModel.swift */,
 			);
 			path = "Place List";
 			sourceTree = "<group>";
@@ -161,6 +169,14 @@
 				FE72033521EE08A500BC4C0B /* LocationManager.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		FE7EA0A121EE2336000DD51E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FE7EA0A221EE235E000DD51E /* String+Helper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FECA58BB21E887E4009F3F05 = {
@@ -188,6 +204,7 @@
 		FECA58C621E887E4009F3F05 /* NicePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				FE7EA0A121EE2336000DD51E /* Helpers */,
 				FE72033421EE088E00BC4C0B /* Location */,
 				FE72032521EC769300BC4C0B /* Place Details */,
 				FE72032421EC767E00BC4C0B /* Place List */,
@@ -440,11 +457,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE72032B21EC77C100BC4C0B /* PlaceListViewController.swift in Sources */,
+				FE7EA0A021EE17DA000DD51E /* PlaceCellModel.swift in Sources */,
 				FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */,
+				FE7EA0A321EE235E000DD51E /* String+Helper.swift in Sources */,
 				FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */,
 				FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */,
 				FE72033121ECA53800BC4C0B /* Place.swift in Sources */,
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
+				FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */,
 				FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */,
 				FE72032D21EC77D300BC4C0B /* PlaceListViewModel.swift in Sources */,
 				FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */,

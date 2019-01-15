@@ -33,7 +33,7 @@ class MapViewController: UIViewController
 			.disposed(by: disposeBag)
 		
 		viewModel.places.asObservable()
-			.subscribe { (event) in
+			.subscribe { _ in
 				self.configPins()
 			}
 			.disposed(by: disposeBag)
@@ -64,10 +64,13 @@ extension MapViewController: MKMapViewDelegate
 		let identifier = "Annotation"
 		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 		
-		if annotationView == nil {
+		if annotationView == nil
+		{
 			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 			annotationView!.canShowCallout = true
-		} else {
+		}
+		else
+		{
 			annotationView!.annotation = annotation
 		}
 		
