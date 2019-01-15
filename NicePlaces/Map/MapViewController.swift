@@ -27,8 +27,14 @@ class MapViewController: UIViewController
 			.merge()
 			.subscribe { _ in
 				let center = CLLocationCoordinate2D(latitude: self.viewModel.lat.value, longitude: self.viewModel.lng.value)
-				let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+				let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
 				self.mapView.setRegion(region, animated: true)
+			}
+			.disposed(by: disposeBag)
+		
+		viewModel.places.asObservable()
+			.subscribe { (event) in
+				self.configPins()
 			}
 			.disposed(by: disposeBag)
 	}
@@ -39,9 +45,36 @@ class MapViewController: UIViewController
 		viewModel.startUpdatingLocation()
 	}
 	
+	func configPins()
+	{
+		mapView.removeAnnotations(mapView.annotations)
+		for place in viewModel.places.value
+		{
+			mapView.addAnnotation(place)
+		}
+	}
+	
 }
 
 extension MapViewController: MKMapViewDelegate
 {
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		guard annotation is MKPointAnnotation else { return nil }
+		
+		let identifier = "Annotation"
+		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+		
+		if annotationView == nil {
+			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+			annotationView!.canShowCallout = true
+		} else {
+			annotationView!.annotation = annotation
+		}
+		
+		return annotationView
+	}
 	
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		print("qqq")
+	}
 }

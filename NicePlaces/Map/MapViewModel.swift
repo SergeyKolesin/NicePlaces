@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-//import MapKit
+import CoreData
 import CoreLocation
 
 class MapViewModel: NSObject
@@ -16,6 +16,8 @@ class MapViewModel: NSObject
 	let locationManager = CLLocationManager()
 	var lat = Variable<Double>(0)
 	var lng = Variable<Double>(0)
+	var places = Variable<[Place]>([Place]())
+	let disposeBag = DisposeBag()
 	
 	override init()
 	{
@@ -23,12 +25,35 @@ class MapViewModel: NSObject
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.requestWhenInUseAuthorization()
+		PlaceManager.shared.places.asObservable().subscribe { (event) in
+			if let value = event.element
+			{
+				self.places.value = value
+			}
+		}.disposed(by: disposeBag)
 	}
 	
 	func startUpdatingLocation()
 	{
 		locationManager.startUpdatingLocation()
+//		fetchPlaceList()
 	}
+	
+//	func fetchPlaceList()
+//	{
+//		guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+//		let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Place")
+//		do
+//		{
+//			places.value = try appDelegate.persistentContainer.viewContext.fetch(request).compactMap({ item -> Place? in
+//				item as? Place
+//			})
+//		}
+//		catch
+//		{
+//			print("Core Data is Failed")
+//		}
+//	}
 }
 
 extension MapViewModel: CLLocationManagerDelegate

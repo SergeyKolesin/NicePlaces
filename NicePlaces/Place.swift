@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import MapKit
 
 enum PlaceError: Error {
 	case invalidJson
@@ -35,6 +36,18 @@ extension Place
 			try context.save()
 		} catch {
 			throw PlaceError.coreDataIssue
+		}
+	}
+}
+
+
+extension Place: MKAnnotation
+{
+	public var coordinate: CLLocationCoordinate2D
+	{
+		get
+		{
+			return CLLocationCoordinate2D(latitude: lat, longitude: lng)
 		}
 	}
 }
