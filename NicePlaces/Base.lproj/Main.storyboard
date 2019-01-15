@@ -43,7 +43,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="121-v7-l9e">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="121-v7-l9e">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -52,7 +52,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UnZ-XT-PcJ" id="xWb-Pz-chy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jxd-Oo-1e0">
@@ -119,6 +119,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-s1-nzm">
+                                                    <rect key="frame" x="10" y="178" width="365" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="GR6-Jl-oNE"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="QGh-LE-tc7" firstAttribute="centerY" secondItem="TQ3-1y-k0M" secondAttribute="centerY" id="8gB-Hq-bAv"/>
@@ -126,13 +133,16 @@
                                                 <constraint firstItem="QGh-LE-tc7" firstAttribute="width" secondItem="TQ3-1y-k0M" secondAttribute="width" id="DCC-2d-qbW"/>
                                                 <constraint firstItem="xud-Nl-Y5I" firstAttribute="leading" secondItem="xWb-Pz-chy" secondAttribute="leading" constant="10" id="F7w-VD-3nG"/>
                                                 <constraint firstItem="TQ3-1y-k0M" firstAttribute="leading" secondItem="xWb-Pz-chy" secondAttribute="leading" id="IL3-BS-ebz"/>
+                                                <constraint firstAttribute="bottom" secondItem="KC3-s1-nzm" secondAttribute="bottom" id="KvX-Ab-fre"/>
                                                 <constraint firstAttribute="trailing" secondItem="xud-Nl-Y5I" secondAttribute="trailing" constant="15" id="Shr-W3-atR"/>
                                                 <constraint firstItem="Jxd-Oo-1e0" firstAttribute="top" secondItem="xWb-Pz-chy" secondAttribute="top" constant="8" id="YOw-BV-MvG"/>
+                                                <constraint firstAttribute="trailing" secondItem="KC3-s1-nzm" secondAttribute="trailing" id="bsX-n8-pM1"/>
                                                 <constraint firstItem="QGh-LE-tc7" firstAttribute="leading" secondItem="TQ3-1y-k0M" secondAttribute="trailing" id="iN3-Gf-EOo"/>
                                                 <constraint firstItem="xud-Nl-Y5I" firstAttribute="top" secondItem="TQ3-1y-k0M" secondAttribute="bottom" id="jJx-O7-wwi"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jxd-Oo-1e0" secondAttribute="trailing" constant="20" symbolic="YES" id="mJu-hs-KoK"/>
                                                 <constraint firstItem="TQ3-1y-k0M" firstAttribute="width" secondItem="xWb-Pz-chy" secondAttribute="width" multiplier="0.5" id="p0A-E7-TNO"/>
                                                 <constraint firstItem="Jxd-Oo-1e0" firstAttribute="leading" secondItem="xWb-Pz-chy" secondAttribute="leading" constant="10" id="sex-Xp-Mtz"/>
+                                                <constraint firstItem="KC3-s1-nzm" firstAttribute="leading" secondItem="xWb-Pz-chy" secondAttribute="leading" constant="10" id="vjG-Pe-RXf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -184,17 +194,16 @@
                     <navigationItem key="navigationItem" title="Map" id="kjE-Td-C5W"/>
                     <connections>
                         <outlet property="mapView" destination="uEb-rU-qiQ" id="pXN-gk-Smt"/>
-                        <segue destination="Owd-1T-UNF" kind="show" identifier="showAddPlaceVC" id="nyc-3o-hF9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMh-an-Jaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1621.5999999999999" y="-403.44827586206901"/>
         </scene>
-        <!--Place Details View Controller-->
+        <!--Place Edit Details View Controller-->
         <scene sceneID="EaP-w3-Vkv">
             <objects>
-                <viewController id="Owd-1T-UNF" customClass="PlaceDetailsViewController" customModule="NicePlaces" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Owd-1T-UNF" customClass="PlaceEditDetailsViewController" customModule="NicePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e9p-aL-Nsm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -281,10 +290,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3Gg-2r-ND0"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="3dI-NM-IeV" id="86E-9P-axN"/>
+                        <outlet property="latValueLabel" destination="qwc-rZ-JcC" id="0h0-if-IPg"/>
+                        <outlet property="lngValueLabel" destination="0At-hh-2as" id="Mg5-xd-N5u"/>
+                        <outlet property="titleTextField" destination="XLg-qm-Y4I" id="cOK-jh-tin"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fb4-WL-Flt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2528.8000000000002" y="-103.89805097451276"/>
+            <point key="canvasLocation" x="2567" y="253"/>
         </scene>
         <!--Map-->
         <scene sceneID="uIY-te-8Si">
@@ -323,7 +338,4 @@
             <point key="canvasLocation" x="-30" y="-80"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="nyc-3o-hF9"/>
-    </inferredMetricsTieBreakers>
 </document>

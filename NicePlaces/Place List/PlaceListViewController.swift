@@ -27,6 +27,16 @@ class PlaceListViewController: UIViewController
 			.disposed(by: disposeBag)
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+	{
+		if segue.identifier == "showEditPlaceVC"
+		{
+			guard let place = sender as? Place else {return}
+			guard let vc = segue.destination as? PlaceEditDetailsViewController else {return}
+			vc.viewModel = PlaceEditDetailsViewModel(place: place)
+		}
+	}
+	
 }
 
 extension PlaceListViewController: UITableViewDelegate
@@ -41,6 +51,7 @@ extension PlaceListViewController: UITableViewDelegate
 	{
 		let cell = tableView.cellForRow(at: indexPath)
 		cell?.isSelected = false
+		performSegue(withIdentifier: "showEditPlaceVC", sender: viewModel.place(for: indexPath.row))
 	}
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

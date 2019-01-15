@@ -40,4 +40,13 @@ class PlaceListViewModel: NSObject
 		PlaceManager.shared.deletePlace(for: index)
 	}
 	
+	func place(for index: Int) -> Place?
+	{
+		if index >= 0 && index < PlaceManager.shared.places.value.count
+		{
+			return PlaceManager.shared.places.value[index]
+		}
+		return nil
+	}
+	
 }
