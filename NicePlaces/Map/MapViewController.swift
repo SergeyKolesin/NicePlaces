@@ -23,12 +23,12 @@ class MapViewController: UIViewController
 		mapView.delegate = self
 		mapView.showsUserLocation = true
 
-		Observable.of(viewModel.lat.asObservable(), viewModel.lng.asObservable())
-			.merge()
-			.subscribe { _ in
-				let center = CLLocationCoordinate2D(latitude: self.viewModel.lat.value, longitude: self.viewModel.lng.value)
-				let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
-				self.mapView.setRegion(region, animated: true)
+		viewModel.region.asObservable()
+			.subscribe { event in
+				if let element = event.element
+				{
+					self.mapView.setRegion(element, animated: true)
+				}
 			}
 			.disposed(by: disposeBag)
 		
@@ -59,7 +59,7 @@ class MapViewController: UIViewController
 extension MapViewController: MKMapViewDelegate
 {
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-		guard annotation is MKPointAnnotation else { return nil }
+		guard annotation is Place else { return nil }
 		
 		let identifier = "Annotation"
 		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)

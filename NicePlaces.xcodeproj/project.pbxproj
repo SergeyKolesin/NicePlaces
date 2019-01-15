@@ -17,6 +17,7 @@
 		FE72032F21ECA1B000BC4C0B /* DefaultPlaces.json in Resources */ = {isa = PBXBuildFile; fileRef = FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */; };
 		FE72033121ECA53800BC4C0B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033021ECA53800BC4C0B /* Place.swift */; };
 		FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */; };
+		FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033521EE08A500BC4C0B /* LocationManager.swift */; };
 		FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C721E887E4009F3F05 /* AppDelegate.swift */; };
 		FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C921E887E4009F3F05 /* ViewController.swift */; };
 		FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58CB21E887E4009F3F05 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DefaultPlaces.json; sourceTree = "<group>"; };
 		FE72033021ECA53800BC4C0B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceManager.swift; sourceTree = "<group>"; };
+		FE72033521EE08A500BC4C0B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		FECA58C421E887E4009F3F05 /* NicePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NicePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58C721E887E4009F3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FECA58C921E887E4009F3F05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,14 @@
 			path = "Place Details";
 			sourceTree = "<group>";
 		};
+		FE72033421EE088E00BC4C0B /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				FE72033521EE08A500BC4C0B /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		FECA58BB21E887E4009F3F05 = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +188,7 @@
 		FECA58C621E887E4009F3F05 /* NicePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				FE72033421EE088E00BC4C0B /* Location */,
 				FE72032521EC769300BC4C0B /* Place Details */,
 				FE72032421EC767E00BC4C0B /* Place List */,
 				FE72032321EC767600BC4C0B /* Map */,
@@ -430,6 +441,7 @@
 			files = (
 				FE72032B21EC77C100BC4C0B /* PlaceListViewController.swift in Sources */,
 				FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */,
+				FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */,
 				FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */,
 				FE72033121ECA53800BC4C0B /* Place.swift in Sources */,
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
