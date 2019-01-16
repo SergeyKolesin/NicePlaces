@@ -45,7 +45,6 @@ class PlaceEditDetailsViewController: UIViewController
 			.orEmpty
 			.bind(to: viewModel.descriptionString)
 			.disposed(by: disposeBag)
-		
 	}
 	
 	@objc func saveTapped()

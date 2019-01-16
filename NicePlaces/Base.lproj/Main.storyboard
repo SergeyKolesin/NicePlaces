@@ -194,11 +194,12 @@
                     <navigationItem key="navigationItem" title="Map" id="kjE-Td-C5W"/>
                     <connections>
                         <outlet property="mapView" destination="uEb-rU-qiQ" id="pXN-gk-Smt"/>
+                        <segue destination="BdN-YW-sz9" kind="show" identifier="showAddPlaceVC" id="VcA-dm-Wwj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMh-an-Jaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621.5999999999999" y="-403.44827586206901"/>
+            <point key="canvasLocation" x="1622" y="-403"/>
         </scene>
         <!--Place Edit Details View Controller-->
         <scene sceneID="EaP-w3-Vkv">
@@ -300,6 +301,75 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fb4-WL-Flt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2567" y="253"/>
+        </scene>
+        <!--Add Place View Controller-->
+        <scene sceneID="PoZ-kK-k2g">
+            <objects>
+                <viewController id="BdN-YW-sz9" customClass="AddPlaceViewController" customModule="NicePlaces" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CQS-i7-rsR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vjh-Se-2CJ">
+                                <rect key="frame" x="16" y="84" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="longitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pat-YX-MXX">
+                                <rect key="frame" x="16" y="160" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="You can add note here." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tnZ-hN-PnO">
+                                <rect key="frame" x="16" y="198" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VbX-VJ-Vye">
+                                <rect key="frame" x="0.0" y="243" width="375" height="375"/>
+                            </mapView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="latitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WZc-ES-cfr">
+                                <rect key="frame" x="16" y="122" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KkR-jk-6hp" firstAttribute="trailing" secondItem="WZc-ES-cfr" secondAttribute="trailing" constant="16" id="1lw-Br-97j"/>
+                            <constraint firstItem="WZc-ES-cfr" firstAttribute="top" secondItem="vjh-Se-2CJ" secondAttribute="bottom" constant="8" id="42Z-QL-YNV"/>
+                            <constraint firstItem="tnZ-hN-PnO" firstAttribute="leading" secondItem="KkR-jk-6hp" secondAttribute="leading" constant="16" id="83P-cN-frE"/>
+                            <constraint firstItem="VbX-VJ-Vye" firstAttribute="leading" secondItem="KkR-jk-6hp" secondAttribute="leading" id="CUW-Me-ASH"/>
+                            <constraint firstItem="Pat-YX-MXX" firstAttribute="top" secondItem="WZc-ES-cfr" secondAttribute="bottom" constant="8" id="DBD-qL-4aj"/>
+                            <constraint firstItem="VbX-VJ-Vye" firstAttribute="top" secondItem="tnZ-hN-PnO" secondAttribute="bottom" constant="15" id="Mew-0k-nfw"/>
+                            <constraint firstItem="KkR-jk-6hp" firstAttribute="trailing" secondItem="vjh-Se-2CJ" secondAttribute="trailing" constant="16" id="NeY-aB-dLg"/>
+                            <constraint firstItem="KkR-jk-6hp" firstAttribute="trailing" secondItem="Pat-YX-MXX" secondAttribute="trailing" constant="16" id="P72-uC-FfB"/>
+                            <constraint firstItem="tnZ-hN-PnO" firstAttribute="top" secondItem="Pat-YX-MXX" secondAttribute="bottom" constant="8" id="Sj9-ID-hGv"/>
+                            <constraint firstItem="VbX-VJ-Vye" firstAttribute="bottom" secondItem="KkR-jk-6hp" secondAttribute="bottom" id="TS0-Vd-NMq"/>
+                            <constraint firstItem="vjh-Se-2CJ" firstAttribute="leading" secondItem="KkR-jk-6hp" secondAttribute="leading" constant="16" id="gK6-Cz-Ica"/>
+                            <constraint firstItem="Pat-YX-MXX" firstAttribute="leading" secondItem="KkR-jk-6hp" secondAttribute="leading" constant="16" id="l3r-X2-0iG"/>
+                            <constraint firstItem="WZc-ES-cfr" firstAttribute="leading" secondItem="KkR-jk-6hp" secondAttribute="leading" constant="16" id="nAX-4f-uKV"/>
+                            <constraint firstItem="VbX-VJ-Vye" firstAttribute="trailing" secondItem="KkR-jk-6hp" secondAttribute="trailing" id="nNa-fA-Gd2"/>
+                            <constraint firstItem="KkR-jk-6hp" firstAttribute="trailing" secondItem="tnZ-hN-PnO" secondAttribute="trailing" constant="16" id="tT7-Y9-wYA"/>
+                            <constraint firstItem="vjh-Se-2CJ" firstAttribute="top" secondItem="KkR-jk-6hp" secondAttribute="top" constant="20" id="vwp-T9-JyQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KkR-jk-6hp"/>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="tnZ-hN-PnO" id="dVP-m7-WJH"/>
+                        <outlet property="latTextField" destination="WZc-ES-cfr" id="YM6-Nt-BN9"/>
+                        <outlet property="lngTextField" destination="Pat-YX-MXX" id="mBJ-jQ-hgW"/>
+                        <outlet property="mapView" destination="VbX-VJ-Vye" id="THb-HB-36s"/>
+                        <outlet property="titleTextField" destination="vjh-Se-2CJ" id="d6M-sq-ysn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="veH-jM-jrD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2565.5999999999999" y="-403.44827586206901"/>
         </scene>
         <!--Map-->
         <scene sceneID="uIY-te-8Si">

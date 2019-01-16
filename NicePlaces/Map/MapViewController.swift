@@ -22,6 +22,9 @@ class MapViewController: UIViewController
 		super.viewDidLoad()
 		mapView.delegate = self
 		mapView.showsUserLocation = true
+		
+		let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapOnMap))
+		mapView.addGestureRecognizer(longTap)
 
 		viewModel.region.asObservable()
 			.subscribe { event in
@@ -45,12 +48,32 @@ class MapViewController: UIViewController
 		viewModel.startUpdatingLocation()
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+	{
+		if segue.identifier == "showAddPlaceVC"
+		{
+			guard let longTap = sender as? UILongPressGestureRecognizer else {return}
+			guard let vc = segue.destination as? AddPlaceViewController else {return}
+			let point = longTap.location(in: mapView)
+			let coordinate = mapView.convert(point, toCoordinateFrom: nil)
+			vc.viewModel = AddPlaceViewModel(lat: coordinate.latitude, lng: coordinate.longitude)
+		}
+	}
+	
 	func configPins()
 	{
 		mapView.removeAnnotations(mapView.annotations)
 		for place in viewModel.places.value
 		{
 			mapView.addAnnotation(place)
+		}
+	}
+	
+	@objc func longTapOnMap(sender: UILongPressGestureRecognizer)
+	{
+		if sender.state == .began
+		{
+			performSegue(withIdentifier: "showAddPlaceVC", sender: sender)
 		}
 	}
 	

@@ -19,6 +19,8 @@
 		FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */; };
 		FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033521EE08A500BC4C0B /* LocationManager.swift */; };
 		FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72033721EE109D00BC4C0B /* PlaceCell.swift */; };
+		FE722AF321EF24AB00207659 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE722AF221EF24AB00207659 /* AddPlaceViewController.swift */; };
+		FE722AF521EF24BC00207659 /* AddPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE722AF421EF24BC00207659 /* AddPlaceViewModel.swift */; };
 		FE7EA0A021EE17DA000DD51E /* PlaceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA09F21EE17DA000DD51E /* PlaceCellModel.swift */; };
 		FE7EA0A321EE235E000DD51E /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A221EE235E000DD51E /* String+Helper.swift */; };
 		FE7EA0A521EE2DEF000DD51E /* PlaceEditDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */; };
@@ -69,6 +71,8 @@
 		FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceManager.swift; sourceTree = "<group>"; };
 		FE72033521EE08A500BC4C0B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		FE72033721EE109D00BC4C0B /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
+		FE722AF221EF24AB00207659 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
+		FE722AF421EF24BC00207659 /* AddPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewModel.swift; sourceTree = "<group>"; };
 		FE7EA09F21EE17DA000DD51E /* PlaceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCellModel.swift; sourceTree = "<group>"; };
 		FE7EA0A221EE235E000DD51E /* String+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helper.swift"; sourceTree = "<group>"; };
 		FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditDetailsViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
+		FE722AF121EF248B00207659 /* Add Place */ = {
+			isa = PBXGroup;
+			children = (
+				FE722AF221EF24AB00207659 /* AddPlaceViewController.swift */,
+				FE722AF421EF24BC00207659 /* AddPlaceViewModel.swift */,
+			);
+			path = "Add Place";
+			sourceTree = "<group>";
+		};
 		FE7EA0A121EE2336000DD51E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +223,7 @@
 		FECA58C621E887E4009F3F05 /* NicePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				FE722AF121EF248B00207659 /* Add Place */,
 				FE7EA0A121EE2336000DD51E /* Helpers */,
 				FE72033421EE088E00BC4C0B /* Location */,
 				FE72032521EC769300BC4C0B /* Place Edit Details */,
@@ -466,6 +480,7 @@
 				FE7EA0A021EE17DA000DD51E /* PlaceCellModel.swift in Sources */,
 				FE7EA0A721EE2E08000DD51E /* PlaceEditDetailsViewModel.swift in Sources */,
 				FE7EA0A521EE2DEF000DD51E /* PlaceEditDetailsViewController.swift in Sources */,
+				FE722AF321EF24AB00207659 /* AddPlaceViewController.swift in Sources */,
 				FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */,
 				FE7EA0A321EE235E000DD51E /* String+Helper.swift in Sources */,
 				FE72033621EE08A500BC4C0B /* LocationManager.swift in Sources */,
@@ -474,6 +489,7 @@
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
 				FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */,
 				FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */,
+				FE722AF521EF24BC00207659 /* AddPlaceViewModel.swift in Sources */,
 				FE72032D21EC77D300BC4C0B /* PlaceListViewModel.swift in Sources */,
 				FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */,
 				FE72032721EC76D100BC4C0B /* MapViewController.swift in Sources */,
