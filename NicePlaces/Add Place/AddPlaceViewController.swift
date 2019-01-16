@@ -17,8 +17,8 @@ class AddPlaceViewController: UIViewController
 	@IBOutlet weak var latTextField: UITextField!
 	@IBOutlet weak var lngTextField: UITextField!
 	@IBOutlet weak var descriptionTextField: UITextField!
-	
 	@IBOutlet weak var mapView: MKMapView!
+	
 	let disposeBag = DisposeBag()
 	
 	var viewModel: AddPlaceViewModel!

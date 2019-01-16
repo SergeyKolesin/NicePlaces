@@ -24,7 +24,7 @@ class AddPlaceViewModel
 	
 	func saveNewPlace()
 	{
-		
+		PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(lat.value)!, lng: Double(lng.value)!)
 	}
 }
 

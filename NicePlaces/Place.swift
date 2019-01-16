@@ -30,7 +30,6 @@ extension Place
 			place.lat = lat
 			place.lng = lng
 			place.descriptionString = ""
-			place.editable = false
 		}
 		do {
 			try context.save()
@@ -46,6 +45,17 @@ extension Place
 		request.predicate = pred
 		let result = try? context.fetch(request)
 		return result?.first
+	}
+	
+	class func addNewPlace(context: NSManagedObjectContext, title: String, descriptionString: String, lat: Double, lng: Double)
+	{
+		guard let entity = NSEntityDescription.entity(forEntityName: "Place", in: context) else {return}
+		guard let place = NSManagedObject(entity: entity, insertInto: context) as? Place else {return}
+		place.title = title
+		place.lat = lat
+		place.lng = lng
+		place.descriptionString = descriptionString
+		try? context.save()
 	}
 }
 

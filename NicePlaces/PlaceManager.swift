@@ -84,16 +84,37 @@ class PlaceManager: NSObject
 	
 	func update(place: Place, withTitle newTitle: String, withDescription newDescription: String)
 	{
+		guard let title = place.title else {return}
 		persistentContainer.performBackgroundTask { context in
-			guard let title = place.title else {return}
-			if let existPlace = Place.fetchPlace(context: context, title: title)
+			guard let existPlace = Place.fetchPlace(context: context, title: title) else {return}
+			if let placeWithNewTitle = Place.fetchPlace(context: context, title: newTitle)
 			{
-				existPlace.title = newTitle
-				existPlace.descriptionString = newDescription
-				try? context.save()
+				if placeWithNewTitle != existPlace
+				{
+					return
+				}
 			}
+			existPlace.title = newTitle
+			existPlace.descriptionString = newDescription
+			try? context.save()
 		}
 	}
+	
+	func addNewPlace(title: String, descriptionString: String, lat: Double, lng: Double)
+	{
+		if title.isEmpty
+		{
+			return
+		}
+		persistentContainer.performBackgroundTask { context in
+			if let _ = Place.fetchPlace(context: context, title: title)
+			{
+				return
+			}
+			Place.addNewPlace(context: context, title: title, descriptionString: descriptionString, lat: lat, lng: lng)
+		}
+	}
+	
 }
 
 extension PlaceManager: NSFetchedResultsControllerDelegate
