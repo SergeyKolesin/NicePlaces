@@ -21,8 +21,8 @@ class PlaceListViewController: UIViewController
 		tableView.delegate = self
 		tableView.dataSource = self
 		viewModel.places.asObservable()
-			.subscribe { _ in
-				self.tableView.reloadData()
+			.subscribe { [weak self] _ in
+				self?.tableView.reloadData()
 			}
 			.disposed(by: disposeBag)
 	}

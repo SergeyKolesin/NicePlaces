@@ -13,16 +13,16 @@ class PlaceEditDetailsViewModel: NSObject
 {
 	let place: Place
 	let title: Variable<String>
-	let lat: Variable<String>
-	let lng: Variable<String>
+	let lat: String
+	let lng: String
 	let descriptionString: Variable<String>
 	
 	init(place: Place)
 	{
 		self.place = place
 		title = Variable<String>(place.title ?? "")
-		lat = Variable<String>(String(format: "%.6f", place.lat))
-		lng = Variable<String>(String(format: "%.6f", place.lng))
+		lat = String(format: "%.6f", place.lat)
+		lng = String(format: "%.6f", place.lng)
 		descriptionString = Variable<String>(place.descriptionString ?? "")
 		
 		super.init()

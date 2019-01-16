@@ -25,18 +25,11 @@ class PlaceEditDetailsViewController: UIViewController
 		super.viewDidLoad()
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
 		title = viewModel.place.title ?? ""
-		viewModel.lat.asObservable()
-			.bind(to: latValueLabel.rx.text)
-			.disposed(by: disposeBag)
-		viewModel.lng.asObservable()
-			.bind(to: lngValueLabel.rx.text)
-			.disposed(by: disposeBag)
-		viewModel.title.asObservable()
-			.bind(to: titleTextField.rx.text)
-			.disposed(by: disposeBag)
-		viewModel.descriptionString.asObservable()
-			.bind(to: descriptionTextField.rx.text)
-			.disposed(by: disposeBag)
+		latValueLabel.text = viewModel.lat
+		lngValueLabel.text = viewModel.lng
+		titleTextField.text = viewModel.title.value
+		descriptionTextField.text = viewModel.descriptionString.value
+		
 		titleTextField.rx.text
 			.orEmpty
 			.bind(to: viewModel.title)

@@ -27,17 +27,17 @@ class MapViewController: UIViewController
 		mapView.addGestureRecognizer(longTap)
 
 		viewModel.region.asObservable()
-			.subscribe { event in
+			.subscribe { [weak self] event in
 				if let element = event.element
 				{
-					self.mapView.setRegion(element, animated: true)
+					self?.mapView.setRegion(element, animated: true)
 				}
 			}
 			.disposed(by: disposeBag)
 		
 		viewModel.places.asObservable()
-			.subscribe { _ in
-				self.configPins()
+			.subscribe { [weak self] _ in
+				self?.configPins()
 			}
 			.disposed(by: disposeBag)
 	}
