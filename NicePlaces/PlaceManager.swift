@@ -9,13 +9,16 @@
 import UIKit
 import CoreData
 import RxSwift
+import CoreLocation
 
 class PlaceManager: NSObject
 {
+	let disposeBag = DisposeBag()
 	static let shared = PlaceManager()
-	lazy var places: Variable<[Place]> = {
+	lazy var unsortedPlaces: Variable<[Place]> = {
 		return Variable<[Place]>(self.fetchedResultsController.fetchedObjects ?? [Place]())
 	}()
+	let places = Variable<[Place]>([Place]())
 	
 	private let persistentContainer = NSPersistentContainer(name: "NicePlaces")
 	
@@ -39,6 +42,20 @@ class PlaceManager: NSObject
 			}
 		}
 		persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+		
+		Observable.combineLatest(unsortedPlaces.asObservable(), LocationManager.shared.coordinate.asObservable()) { (places, coordinate) -> [Place] in
+			let sorted = places.sorted(by: { (first, second) -> Bool in
+				let myLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+				let firstLocation = CLLocation(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
+				let secondLocation = CLLocation(latitude: second.coordinate.latitude, longitude: second.coordinate.longitude)
+				let firstDistance = myLocation.distance(from: firstLocation)
+				let secondDistance = myLocation.distance(from: secondLocation)
+				return firstDistance < secondDistance
+			})
+			return sorted
+			}
+			.bind(to: places)
+			.disposed(by: disposeBag)
 	}
 	
 	lazy var fetchedResultsController: NSFetchedResultsController<Place> = {
@@ -121,6 +138,6 @@ extension PlaceManager: NSFetchedResultsControllerDelegate
 {
 	public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
 	{
-		places.value = fetchedResultsController.fetchedObjects ?? [Place]()
+		unsortedPlaces.value = fetchedResultsController.fetchedObjects ?? [Place]()
 	}
 }

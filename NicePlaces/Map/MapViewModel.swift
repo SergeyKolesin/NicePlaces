@@ -27,9 +27,4 @@ class MapViewModel: NSObject
 			.bind(to: region)
 			.disposed(by: disposeBag)
 	}
-	
-	func startUpdatingLocation()
-	{
-		LocationManager.shared.needUpdate()
-	}
 }

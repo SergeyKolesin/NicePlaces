@@ -42,12 +42,6 @@ class MapViewController: UIViewController
 			.disposed(by: disposeBag)
 	}
 	
-	override func viewWillAppear(_ animated: Bool)
-	{
-		super.viewWillAppear(animated)
-		viewModel.startUpdatingLocation()
-	}
-	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
 		if segue.identifier == "showAddPlaceVC"

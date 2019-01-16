@@ -17,16 +17,13 @@ class LocationManager: NSObject
 	private let locationManager = CLLocationManager()
 	
 	let region = Variable<MKCoordinateRegion>(MKCoordinateRegion())
+	let coordinate = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D())
 	
 	private override init() {
 		super.init()
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.requestWhenInUseAuthorization()
-	}
-	
-	func needUpdate()
-	{
 		locationManager.startUpdatingLocation()
 	}
 }
@@ -37,7 +34,7 @@ extension LocationManager: CLLocationManagerDelegate
 		guard let location = locations.last else {return}
 		let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 		region.value = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
-		locationManager.stopUpdatingLocation()
+		coordinate.value = center
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

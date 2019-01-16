@@ -225,7 +225,6 @@
 			children = (
 				FE722AF121EF248B00207659 /* Add Place */,
 				FE7EA0A121EE2336000DD51E /* Helpers */,
-				FE72033421EE088E00BC4C0B /* Location */,
 				FE72032521EC769300BC4C0B /* Place Edit Details */,
 				FE72032421EC767E00BC4C0B /* Place List */,
 				FE72032321EC767600BC4C0B /* Map */,
@@ -239,6 +238,7 @@
 				FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */,
 				FE72033021ECA53800BC4C0B /* Place.swift */,
 				FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */,
+				FE72033421EE088E00BC4C0B /* Location */,
 			);
 			path = NicePlaces;
 			sourceTree = "<group>";
