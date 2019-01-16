@@ -195,6 +195,7 @@
                     <connections>
                         <outlet property="mapView" destination="uEb-rU-qiQ" id="pXN-gk-Smt"/>
                         <segue destination="BdN-YW-sz9" kind="show" identifier="showAddPlaceVC" id="VcA-dm-Wwj"/>
+                        <segue destination="Owd-1T-UNF" kind="show" identifier="showEditPlaceVC" id="2sE-ey-n0s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMh-an-Jaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -408,4 +409,7 @@
             <point key="canvasLocation" x="-30" y="-80"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="2sE-ey-n0s"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -42,6 +42,12 @@ class MapViewController: UIViewController
 			.disposed(by: disposeBag)
 	}
 	
+	override func viewDidAppear(_ animated: Bool)
+	{
+		super.viewDidAppear(animated)
+		self.mapView.setRegion(viewModel.region.value, animated: true)
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
 		if segue.identifier == "showAddPlaceVC"
@@ -51,6 +57,12 @@ class MapViewController: UIViewController
 			let point = longTap.location(in: mapView)
 			let coordinate = mapView.convert(point, toCoordinateFrom: nil)
 			vc.viewModel = AddPlaceViewModel(lat: coordinate.latitude, lng: coordinate.longitude)
+		}
+		else if segue.identifier == "showEditPlaceVC"
+		{
+			guard let place = sender as? Place else {return}
+			guard let vc = segue.destination as? PlaceEditDetailsViewController else {return}
+			vc.viewModel = PlaceEditDetailsViewModel(place: place)
 		}
 	}
 	
@@ -75,7 +87,8 @@ class MapViewController: UIViewController
 
 extension MapViewController: MKMapViewDelegate
 {
-	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+	{
 		guard annotation is Place else { return nil }
 		
 		let identifier = "Annotation"
@@ -94,7 +107,10 @@ extension MapViewController: MKMapViewDelegate
 		return annotationView
 	}
 	
-	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-		print("qqq")
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
+	{
+		guard view.annotation is Place else { return }
+		mapView.deselectAnnotation(view.annotation, animated: false)
+		performSegue(withIdentifier: "showEditPlaceVC", sender: view.annotation)
 	}
 }
