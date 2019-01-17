@@ -117,21 +117,42 @@ class PlaceManager: NSObject
 		}
 	}
 	
-	func addNewPlace(title: String, descriptionString: String, lat: Double, lng: Double)
+	func addNewPlace(title: String, descriptionString: String, lat: Double, lng: Double) -> Observable<Void>
 	{
-		if title.isEmpty
-		{
-			return
-		}
-		persistentContainer.performBackgroundTask { context in
-			if let _ = Place.fetchPlace(context: context, title: title)
-			{
-				return
+		return Observable.create({ observer in
+			self.persistentContainer.performBackgroundTask { context in
+				if let _ = Place.fetchPlace(context: context, title: title)
+				{
+					DispatchQueue.main.async {
+						observer.onError(CoreDataError.alreadyExist)
+					}
+					return
+				}
+				Place.addNewPlace(context: context, title: title, descriptionString: descriptionString, lat: lat, lng: lng)
+				DispatchQueue.main.async {
+					observer.onCompleted()
+				}
 			}
-			Place.addNewPlace(context: context, title: title, descriptionString: descriptionString, lat: lat, lng: lng)
+			return Disposables.create()
+		})
+	}
+}
+
+enum CoreDataError: Error
+{
+	case alreadyExist
+	
+	var description: String
+	{
+		get
+		{
+			switch self
+			{
+			case .alreadyExist:
+				return "Place with name %@ is already exist."
+			}
 		}
 	}
-	
 }
 
 extension PlaceManager: NSFetchedResultsControllerDelegate

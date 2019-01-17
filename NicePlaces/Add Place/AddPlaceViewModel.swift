@@ -15,16 +15,30 @@ class AddPlaceViewModel
 	let lat: Variable<String>
 	let lng: Variable<String>
 	let descriptionString = Variable<String>("")
+	let dismissSubject = PublishSubject<Void>()
+	let showAlertSubject = PublishSubject<String>()
+	
+	let disposeBag = DisposeBag()
 	
 	init(lat: Double, lng: Double)
 	{
 		self.lat = Variable<String>(String(format: "%.6f", lat))
 		self.lng = Variable<String>(String(format: "%.6f", lng))
+		
 	}
 	
 	func saveNewPlace()
 	{
-		PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(lat.value)!, lng: Double(lng.value)!)
+		PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(self.lat.value)!, lng: Double(self.lng.value)!)
+			.subscribe(onError: { error in
+				if let error = error as? CoreDataError
+				{
+					self.showAlertSubject.onNext(String(format: error.description, self.title.value))
+				}
+			}, onCompleted: {
+				self.dismissSubject.onCompleted()
+			})
+			.disposed(by: disposeBag)
 	}
 }
 

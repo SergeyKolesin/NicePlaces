@@ -31,6 +31,20 @@ class AddPlaceViewController: UIViewController
 		setupLat()
 		setupLng()
 		
+		viewModel.dismissSubject.subscribe(
+			onCompleted: { [weak self] in
+				self?.navigationController?.popViewController(animated: true)
+			})
+		.disposed(by: disposeBag)
+		
+		viewModel.showAlertSubject.subscribe(
+			onNext: { [weak self] errorString in
+				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+				self?.present(alert, animated: true, completion: nil)
+			})
+			.disposed(by: disposeBag)
+		
 		Observable.combineLatest(viewModel.lat.asObservable(), viewModel.lng.asObservable()) { (lat, lng) -> CLLocationCoordinate2D in
 				let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
 				return coordinate
@@ -49,7 +63,6 @@ class AddPlaceViewController: UIViewController
 		saveButton.rx.tap
 			.subscribe { [weak self] _ in
 				self?.viewModel.saveNewPlace()
-				self?.navigationController?.popViewController(animated: true)
 			}
 			.disposed(by: disposeBag)
 		title = "New Place"
