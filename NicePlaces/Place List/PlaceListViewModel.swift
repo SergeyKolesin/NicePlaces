@@ -13,6 +13,7 @@ class PlaceListViewModel: NSObject
 {
 	let disposeBag = DisposeBag()
 	var places = Variable<[PlaceCellModel]>([PlaceCellModel]())
+	let showAlertSubject = PublishSubject<String>()
 	
 	override init()
 	{
@@ -34,7 +35,18 @@ class PlaceListViewModel: NSObject
 	
 	func deleteCell(index: Int)
 	{
-		PlaceManager.shared.deletePlace(for: index)
+		guard let place = self.place(for: index) else {
+			showAlertSubject.onNext("Incorrect place index")
+			return
+		}
+		PlaceManager.shared.deletePlace(place)
+			.subscribe(onError: { [weak self] error in
+				if let error = error as? CoreDataError
+				{
+					self?.showAlertSubject.onNext(error.description)
+				}
+			})
+			.disposed(by: disposeBag)
 	}
 	
 	func place(for index: Int) -> Place?

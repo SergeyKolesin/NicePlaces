@@ -34,23 +34,19 @@ class PlaceEditDetailsViewModel: NSObject
 	
 	func saveChanges()
 	{
-		PlaceManager.shared.update(place: place, withTitle: title.value, withDescription: descriptionString.value)
+		PlaceManager.shared.updatePlace(place, withTitle: title.value, withDescription: descriptionString.value)
 			.subscribe(onError: { [weak self] error in
 				if let error = error as? CoreDataError
 				{
-					var name = ""
 					switch error
 					{
 					case .alreadyExist:
-						name = (self?.title.value)!
-					case .nameIsEmpty:
-						break
+						self?.showAlertSubject.onNext(String(format: error.description, (self?.title.value)!))
 					case .notFound:
-						name = (self?.place.title)!
-					case .unknown:
-						break
+						self?.showAlertSubject.onNext(String(format: error.description, (self?.place.title)!))
+					case .unknown, .nameIsEmpty:
+						self?.showAlertSubject.onNext(error.description)
 					}
-					self?.showAlertSubject.onNext(String(format: error.description, name))
 				}
 			}, onCompleted: { [weak self] in
 				self?.dismissSubject.onCompleted()

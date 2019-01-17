@@ -25,6 +25,14 @@ class PlaceListViewController: UIViewController
 				self?.tableView.reloadData()
 			}
 			.disposed(by: disposeBag)
+		
+		viewModel.showAlertSubject.subscribe(
+			onNext: { [weak self] errorString in
+				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+				self?.present(alert, animated: true, completion: nil)
+			})
+			.disposed(by: disposeBag)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)

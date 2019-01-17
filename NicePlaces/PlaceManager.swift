@@ -82,24 +82,32 @@ class PlaceManager: NSObject
 		}
 	}
 	
-	func deletePlace(for index: Int)
+	func deletePlace(_ place: Place) -> Observable<Void>
 	{
-		if index >= 0 && index < places.value.count
-		{
-			let place = places.value[index]
-			guard let title = place.title else {return}
-			
-			persistentContainer.performBackgroundTask { context in
+		return Observable.create({ observer in
+			let disposable = Disposables.create()
+			let title = place.title!
+			self.persistentContainer.performBackgroundTask { context in
 				if let place = Place.fetchPlace(context: context, title: title)
 				{
 					context.delete(place)
 					try? context.save()
+					DispatchQueue.main.async {
+						observer.onCompleted()
+					}
+				}
+				else
+				{
+					DispatchQueue.main.async {
+						observer.onError(CoreDataError.notFound)
+					}
 				}
 			}
-		}
+			return disposable
+		})
 	}
 	
-	func update(place: Place, withTitle newTitle: String, withDescription newDescription: String) -> Observable<Void>
+	func updatePlace(_ place: Place, withTitle newTitle: String, withDescription newDescription: String) -> Observable<Void>
 	{
 		return Observable.create({ observer in
 			let disposable = Disposables.create()
