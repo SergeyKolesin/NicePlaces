@@ -25,8 +25,8 @@ class PlaceEditDetailsViewModel: NSObject
 	{
 		self.place = place
 		title = Variable<String>(place.title ?? "")
-		lat = String(format: "%.6f", place.lat)
-		lng = String(format: "%.6f", place.lng)
+		lat = String(format: "%.10f", place.lat)
+		lng = String(format: "%.10f", place.lng)
 		descriptionString = Variable<String>(place.descriptionString ?? "")
 		
 		super.init()

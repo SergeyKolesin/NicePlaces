@@ -22,9 +22,8 @@ class AddPlaceViewModel
 	
 	init(lat: Double, lng: Double)
 	{
-		self.lat = Variable<String>(String(format: "%.6f", lat))
-		self.lng = Variable<String>(String(format: "%.6f", lng))
-		
+		self.lat = Variable<String>(String(format: "%.10f", lat))
+		self.lng = Variable<String>(String(format: "%.10f", lng))
 	}
 	
 	func saveNewPlace()

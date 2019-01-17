@@ -22,8 +22,8 @@ class PlaceListViewModel: NSObject
 			.map({ placeList -> [PlaceCellModel] in
 				return placeList.map({ place -> PlaceCellModel in
 					let title = place.title ?? ""
-					let lat = String(format: "%.6f", place.lat)
-					let lng = String(format: "%.6f", place.lng)
+					let lat = String(format: "%.10f", place.lat)
+					let lng = String(format: "%.10f", place.lng)
 					let descriptionString = place.descriptionString ?? ""
 					
 					return PlaceCellModel(title: title, lat: lat, lng: lng, descriptionString: descriptionString)

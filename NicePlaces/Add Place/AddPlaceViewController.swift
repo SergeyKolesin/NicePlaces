@@ -19,6 +19,8 @@ class AddPlaceViewController: UIViewController
 	@IBOutlet weak var descriptionTextField: UITextField!
 	@IBOutlet weak var mapView: MKMapView!
 	
+	let coordinate = PublishSubject<CLLocationCoordinate2D>()
+	
 	let disposeBag = DisposeBag()
 	
 	var viewModel: AddPlaceViewModel!
@@ -26,10 +28,21 @@ class AddPlaceViewController: UIViewController
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
+		mapView.delegate = self
 		setupNavBar()
 		setupTitleAndDescription()
 		setupLat()
 		setupLng()
+		coordinate.map {
+				String(format: "%.10f", $0.latitude)
+			}
+			.bind(to: viewModel.lat)
+			.disposed(by: disposeBag)
+		coordinate.map {
+			String(format: "%.10f", $0.longitude)
+			}
+			.bind(to: viewModel.lng)
+			.disposed(by: disposeBag)
 		
 		viewModel.dismissSubject.subscribe(
 			onCompleted: { [weak self] in
@@ -46,8 +59,8 @@ class AddPlaceViewController: UIViewController
 			.disposed(by: disposeBag)
 		
 		Observable.combineLatest(viewModel.lat.asObservable(), viewModel.lng.asObservable()) { (lat, lng) -> CLLocationCoordinate2D in
-				let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
-				return coordinate
+			let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
+			return coordinate
 			}
 			.subscribe { [weak self] event in
 				guard let coordinate = event.element else {return}
@@ -100,7 +113,9 @@ class AddPlaceViewController: UIViewController
 			}
 			.bind(to: viewModel.lat)
 			.disposed(by: disposeBag)
-		latTextField.text = viewModel.lat.value
+		viewModel.lat.asObservable()
+			.bind(to: latTextField.rx.text)
+			.disposed(by: disposeBag)
 	}
 	
 	func setupLng()
@@ -122,7 +137,9 @@ class AddPlaceViewController: UIViewController
 			}
 			.bind(to: viewModel.lng)
 			.disposed(by: disposeBag)
-		lngTextField.text = viewModel.lng.value
+		viewModel.lng.asObservable()
+			.bind(to: lngTextField.rx.text)
+			.disposed(by: disposeBag)
 	}
 	
 	func updateMap(_ coordinate: CLLocationCoordinate2D)
@@ -136,4 +153,36 @@ class AddPlaceViewController: UIViewController
 		mapView.setRegion(region, animated: true)
 	}
 
+}
+
+extension AddPlaceViewController: MKMapViewDelegate
+{
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+	{
+		guard annotation is MKPointAnnotation else { return nil }
+		
+		let identifier = "Annotation"
+		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+		
+		if annotationView == nil
+		{
+			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+		}
+		else
+		{
+			annotationView!.annotation = annotation
+		}
+		annotationView?.isDraggable = true
+		
+		return annotationView
+	}
+	
+	func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState)
+	{
+		if newState == .ending
+		{
+			guard let pinCoordinate = view.annotation?.coordinate else {return}
+			coordinate.onNext(pinCoordinate)
+		}
+	}
 }
