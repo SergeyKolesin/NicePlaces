@@ -30,6 +30,20 @@ class PlaceEditDetailsViewController: UIViewController
 		titleTextField.text = viewModel.title.value
 		descriptionTextField.text = viewModel.descriptionString.value
 		
+		viewModel.dismissSubject.subscribe(
+			onCompleted: { [weak self] in
+				self?.navigationController?.popViewController(animated: true)
+			})
+			.disposed(by: disposeBag)
+		
+		viewModel.showAlertSubject.subscribe(
+			onNext: { [weak self] errorString in
+				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+				self?.present(alert, animated: true, completion: nil)
+			})
+			.disposed(by: disposeBag)
+		
 		titleTextField.rx.text
 			.orEmpty
 			.bind(to: viewModel.title)
@@ -43,6 +57,5 @@ class PlaceEditDetailsViewController: UIViewController
 	@objc func saveTapped()
 	{
 		viewModel.saveChanges()
-		navigationController?.popViewController(animated: true)
 	}
 }

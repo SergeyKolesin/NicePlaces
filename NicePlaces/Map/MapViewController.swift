@@ -94,7 +94,6 @@ extension MapViewController: MKMapViewDelegate
 		if annotationView == nil
 		{
 			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-			annotationView!.canShowCallout = true
 		}
 		else
 		{

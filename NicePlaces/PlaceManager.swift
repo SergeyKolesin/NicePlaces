@@ -99,27 +99,57 @@ class PlaceManager: NSObject
 		}
 	}
 	
-	func update(place: Place, withTitle newTitle: String, withDescription newDescription: String)
+	func update(place: Place, withTitle newTitle: String, withDescription newDescription: String) -> Observable<Void>
 	{
-		guard let title = place.title else {return}
-		persistentContainer.performBackgroundTask { context in
-			guard let existPlace = Place.fetchPlace(context: context, title: title) else {return}
-			if let placeWithNewTitle = Place.fetchPlace(context: context, title: newTitle)
+		return Observable.create({ observer in
+			let disposable = Disposables.create()
+			
+			let title = place.title!
+			
+			if newTitle.isEmpty
 			{
-				if placeWithNewTitle != existPlace
-				{
+				observer.onError(CoreDataError.nameIsEmpty)
+				return disposable
+			}
+			
+			self.persistentContainer.performBackgroundTask { context in
+				guard let existPlace = Place.fetchPlace(context: context, title: title) else {
+					DispatchQueue.main.async {
+						observer.onError(CoreDataError.notFound)
+					}
 					return
 				}
+				if let placeWithNewTitle = Place.fetchPlace(context: context, title: newTitle)
+				{
+					if placeWithNewTitle != existPlace
+					{
+						DispatchQueue.main.async {
+							observer.onError(CoreDataError.alreadyExist)
+						}
+						return
+					}
+				}
+				existPlace.title = newTitle
+				existPlace.descriptionString = newDescription
+				try? context.save()
+				DispatchQueue.main.async {
+					observer.onCompleted()
+				}
 			}
-			existPlace.title = newTitle
-			existPlace.descriptionString = newDescription
-			try? context.save()
-		}
+			
+			return disposable
+		})
 	}
 	
 	func addNewPlace(title: String, descriptionString: String, lat: Double, lng: Double) -> Observable<Void>
 	{
 		return Observable.create({ observer in
+			let disposable = Disposables.create()
+			if title.isEmpty
+			{
+				observer.onError(CoreDataError.nameIsEmpty)
+				return disposable
+			}
 			self.persistentContainer.performBackgroundTask { context in
 				if let _ = Place.fetchPlace(context: context, title: title)
 				{
@@ -133,7 +163,7 @@ class PlaceManager: NSObject
 					observer.onCompleted()
 				}
 			}
-			return Disposables.create()
+			return disposable
 		})
 	}
 }
@@ -141,6 +171,9 @@ class PlaceManager: NSObject
 enum CoreDataError: Error
 {
 	case alreadyExist
+	case nameIsEmpty
+	case notFound
+	case unknown
 	
 	var description: String
 	{
@@ -150,6 +183,12 @@ enum CoreDataError: Error
 			{
 			case .alreadyExist:
 				return "Place with name %@ is already exist."
+			case .nameIsEmpty:
+				return "Place must have name."
+			case .notFound:
+				return "Place with name %@ is not found."
+			case .unknown:
+				return "Unknown data base error."
 			}
 		}
 	}

@@ -30,13 +30,13 @@ class AddPlaceViewModel
 	func saveNewPlace()
 	{
 		PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(self.lat.value)!, lng: Double(self.lng.value)!)
-			.subscribe(onError: { error in
+			.subscribe(onError: { [weak self] error in
 				if let error = error as? CoreDataError
 				{
-					self.showAlertSubject.onNext(String(format: error.description, self.title.value))
+					self?.showAlertSubject.onNext(String(format: error.description, (self?.title.value)!))
 				}
-			}, onCompleted: {
-				self.dismissSubject.onCompleted()
+			}, onCompleted: { [weak self] in
+				self?.dismissSubject.onCompleted()
 			})
 			.disposed(by: disposeBag)
 	}
