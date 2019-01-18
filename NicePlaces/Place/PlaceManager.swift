@@ -15,10 +15,12 @@ class PlaceManager: NSObject
 {
 	let disposeBag = DisposeBag()
 	static let shared = PlaceManager()
-	let coordinate = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D())
+	private let coordinate = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D())
 	lazy var places: Variable<[Place]> = {
 		return Variable<[Place]>(self.fetchedResultsController.fetchedObjects ?? [Place]())
 	}()
+	
+	let placeActionEmitter = PublishSubject<PlaceAction>()
 	
 	private let persistentContainer = NSPersistentContainer(name: "NicePlaces")
 	
@@ -231,6 +233,10 @@ extension PlaceManager: NSFetchedResultsControllerDelegate
 	
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
 	{
-		
+		guard let _ = anObject as? Place else {return}
+		guard let actionType = PlaceActionType(rawValue: type.rawValue - 1) else {return}
+		let action = PlaceAction(type: actionType, indexPath: indexPath, newIndexPath: newIndexPath)
+		places.value = fetchedResultsController.fetchedObjects ?? [Place]()
+		placeActionEmitter.onNext(action)
 	}
 }

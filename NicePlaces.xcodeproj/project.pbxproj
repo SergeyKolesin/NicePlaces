@@ -25,6 +25,7 @@
 		FE7EA0A321EE235E000DD51E /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A221EE235E000DD51E /* String+Helper.swift */; };
 		FE7EA0A521EE2DEF000DD51E /* PlaceEditDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */; };
 		FE7EA0A721EE2E08000DD51E /* PlaceEditDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A621EE2E08000DD51E /* PlaceEditDetailsViewModel.swift */; };
+		FEA9C11C21F232780067B61B /* PlaceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9C11B21F232780067B61B /* PlaceAction.swift */; };
 		FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C721E887E4009F3F05 /* AppDelegate.swift */; };
 		FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C921E887E4009F3F05 /* ViewController.swift */; };
 		FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58CB21E887E4009F3F05 /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		FE7EA0A221EE235E000DD51E /* String+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helper.swift"; sourceTree = "<group>"; };
 		FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditDetailsViewController.swift; sourceTree = "<group>"; };
 		FE7EA0A621EE2E08000DD51E /* PlaceEditDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditDetailsViewModel.swift; sourceTree = "<group>"; };
+		FEA9C11B21F232780067B61B /* PlaceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAction.swift; sourceTree = "<group>"; };
 		FECA58C421E887E4009F3F05 /* NicePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NicePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58C721E887E4009F3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FECA58C921E887E4009F3F05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				FE72033021ECA53800BC4C0B /* Place.swift */,
 				FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */,
+				FEA9C11B21F232780067B61B /* PlaceAction.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */,
 				FE72033121ECA53800BC4C0B /* Place.swift in Sources */,
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
+				FEA9C11C21F232780067B61B /* PlaceAction.swift in Sources */,
 				FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */,
 				FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */,
 				FE722AF521EF24BC00207659 /* AddPlaceViewModel.swift in Sources */,

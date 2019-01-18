@@ -14,6 +14,7 @@ class PlaceListViewModel: NSObject
 	let disposeBag = DisposeBag()
 	var places = Variable<[PlaceCellModel]>([PlaceCellModel]())
 	let showAlertSubject = PublishSubject<String>()
+	let placeActionSubject = PublishSubject<PlaceAction>()
 	
 	override init()
 	{
@@ -30,6 +31,10 @@ class PlaceListViewModel: NSObject
 				})
 			})
 			.bind(to: places)
+			.disposed(by: disposeBag)
+		
+		PlaceManager.shared.placeActionEmitter
+			.bind(to: placeActionSubject)
 			.disposed(by: disposeBag)
 	}
 	

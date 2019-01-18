@@ -20,11 +20,6 @@ class PlaceListViewController: UIViewController
 		super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
-		viewModel.places.asObservable()
-			.subscribe { [weak self] _ in
-				self?.tableView.reloadData()
-			}
-			.disposed(by: disposeBag)
 		
 		viewModel.showAlertSubject.subscribe(
 			onNext: { [weak self] errorString in
@@ -33,6 +28,38 @@ class PlaceListViewController: UIViewController
 				self?.present(alert, animated: true, completion: nil)
 			})
 			.disposed(by: disposeBag)
+		viewModel.placeActionSubject.subscribe(onNext: { [weak self] action in
+				switch action.type
+				{
+				case .insert:
+					self?.tableView.beginUpdates()
+					self?.tableView.insertRows(at: [action.newIndexPath!], with: .automatic)
+					self?.tableView.endUpdates()
+					print("insert")
+				case .delete:
+					self?.tableView.beginUpdates()
+					self?.tableView.deleteRows(at: [action.indexPath!], with: .automatic)
+					self?.tableView.endUpdates()
+					print("delete")
+				case .move:
+					self?.tableView.beginUpdates()
+					self?.tableView.moveRow(at: action.indexPath!, to: action.newIndexPath!)
+					self?.tableView.endUpdates()
+					print("move")
+				case .update:
+					self?.tableView.beginUpdates()
+					self?.tableView.reloadRows(at: [action.indexPath!], with: .automatic)
+					self?.tableView.endUpdates()
+					print("update")
+				}
+			})
+			.disposed(by: disposeBag)
+	}
+	
+	override func viewDidAppear(_ animated: Bool)
+	{
+		super.viewDidAppear(animated)
+		tableView.reloadData()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
