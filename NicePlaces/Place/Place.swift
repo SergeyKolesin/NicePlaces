@@ -30,6 +30,7 @@ extension Place
 			place.lat = lat
 			place.lng = lng
 			place.descriptionString = ""
+			place.distance = 0
 		}
 		do {
 			try context.save()
@@ -55,6 +56,7 @@ extension Place
 		place.lat = lat
 		place.lng = lng
 		place.descriptionString = descriptionString
+		place.distance = PlaceManager.shared.calculateCurrentDistance(for: place)
 		try? context.save()
 	}
 }

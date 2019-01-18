@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
 	{
-		if PlaceManager.shared.unsortedPlaces.value.count == 0
+		if PlaceManager.shared.places.value.count == 0
 		{
 			guard let path = Bundle.main.path(forResource: "DefaultPlaces", ofType: "json") else {return false}
 			do

@@ -15,10 +15,10 @@ class PlaceManager: NSObject
 {
 	let disposeBag = DisposeBag()
 	static let shared = PlaceManager()
-	lazy var unsortedPlaces: Variable<[Place]> = {
+	let coordinate = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D())
+	lazy var places: Variable<[Place]> = {
 		return Variable<[Place]>(self.fetchedResultsController.fetchedObjects ?? [Place]())
 	}()
-	let places = Variable<[Place]>([Place]())
 	
 	private let persistentContainer = NSPersistentContainer(name: "NicePlaces")
 	
@@ -43,30 +43,50 @@ class PlaceManager: NSObject
 		}
 		persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
 		
-		Observable.combineLatest(unsortedPlaces.asObservable(), LocationManager.shared.coordinate.asObservable()) { (places, coordinate) -> [Place] in
-			let sorted = places.sorted(by: { (first, second) -> Bool in
-				let myLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-				let firstLocation = CLLocation(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
-				let secondLocation = CLLocation(latitude: second.coordinate.latitude, longitude: second.coordinate.longitude)
-				let firstDistance = myLocation.distance(from: firstLocation)
-				let secondDistance = myLocation.distance(from: secondLocation)
-				return firstDistance < secondDistance
+		LocationManager.shared.coordinate
+			.bind(to: coordinate)
+			.disposed(by: disposeBag)
+		
+		LocationManager.shared.coordinate
+			.throttle(1, scheduler: MainScheduler.instance)
+			.subscribe(onNext: { [weak self] coordinate in
+				
+				let titles = PlaceManager.shared.places.value.compactMap({ place -> String? in
+					return place.title
+				})
+				
+				self?.persistentContainer.performBackgroundTask { context in
+					
+					for title in titles
+					{
+						guard let place = Place.fetchPlace(context: context, title: title) else {continue}
+						place.distance = PlaceManager.shared.calculateCurrentDistance(for: place, andCoordinate: coordinate)
+					}
+					
+					try? context.save()
+					
+				}
 			})
-			return sorted
-			}
-			.bind(to: places)
 			.disposed(by: disposeBag)
 	}
 	
 	lazy var fetchedResultsController: NSFetchedResultsController<Place> = {
 		
 		let fetchRequest: NSFetchRequest<Place> = Place.fetchRequest()
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "distance", ascending: true)]
 		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 		
 		fetchedResultsController.delegate = self
 		return fetchedResultsController
 	}()
+	
+	func calculateCurrentDistance(for place: Place, andCoordinate coordinate: CLLocationCoordinate2D = PlaceManager.shared.coordinate.value) -> Double
+	{
+		let myLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+		let placeLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+		let distance = myLocation.distance(from: placeLocation)
+		return distance
+	}
 	
 	func saveDefaultPlaces(dictionary: [String : Any])
 	{
@@ -206,6 +226,11 @@ extension PlaceManager: NSFetchedResultsControllerDelegate
 {
 	public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
 	{
-		unsortedPlaces.value = fetchedResultsController.fetchedObjects ?? [Place]()
+		places.value = fetchedResultsController.fetchedObjects ?? [Place]()
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+	{
+		
 	}
 }

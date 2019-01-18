@@ -198,6 +198,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		FEA9C11A21F22B320067B61B /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				FE72033021ECA53800BC4C0B /* Place.swift */,
+				FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */,
+			);
+			path = Place;
+			sourceTree = "<group>";
+		};
 		FECA58BB21E887E4009F3F05 = {
 			isa = PBXGroup;
 			children = (
@@ -236,8 +245,7 @@
 				FECA58D621E887E5009F3F05 /* Info.plist */,
 				FECA58CE21E887E4009F3F05 /* NicePlaces.xcdatamodeld */,
 				FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */,
-				FE72033021ECA53800BC4C0B /* Place.swift */,
-				FE72033221ECE2FE00BC4C0B /* PlaceManager.swift */,
+				FEA9C11A21F22B320067B61B /* Place */,
 				FE72033421EE088E00BC4C0B /* Location */,
 			);
 			path = NicePlaces;
