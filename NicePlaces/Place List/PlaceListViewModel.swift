@@ -13,7 +13,6 @@ class PlaceListViewModel: NSObject
 {
 	let disposeBag = DisposeBag()
 	var places = Variable<[PlaceCellModel]>([PlaceCellModel]())
-	let showAlertSubject = PublishSubject<String>()
 	let placeActionSubject = PublishSubject<PlaceAction>()
 	
 	override init()
@@ -38,21 +37,23 @@ class PlaceListViewModel: NSObject
 			.disposed(by: disposeBag)
 	}
 	
-	func deleteCell(index: Int)
+	func deleteCell(index: Int) -> Observable<PlaceOperationResult>
 	{
 		guard let place = self.place(for: index) else {
-			showAlertSubject.onNext("Incorrect place index")
-			return
+			return Observable<PlaceOperationResult>.just(PlaceOperationResult(success: false, errorString: "Incorrect place index"))
 		}
-		PlaceManager.shared.deletePlace(place)
+		return PlaceManager.shared.deletePlace(place)
 			.observeOn(MainScheduler.instance)
-			.subscribe(onError: { [weak self] error in
-				if let error = error as? CoreDataError
-				{
-					self?.showAlertSubject.onNext(error.description)
-				}
+			.flatMap({ _ -> Observable<PlaceOperationResult> in
+				return Observable<PlaceOperationResult>.just(PlaceOperationResult(success: true, errorString: nil))
 			})
-			.disposed(by: disposeBag)
+			.catchError({ error -> Observable<PlaceOperationResult> in
+				guard let error = error as? CoreDataError else {throw CoreDataError.unknown}
+				return Observable<PlaceOperationResult>.create({ observer -> Disposable in
+					observer.onNext(PlaceOperationResult(success: false, errorString: error.description))
+					return Disposables.create()
+				})
+			})
 	}
 	
 	func place(for index: Int) -> Place?

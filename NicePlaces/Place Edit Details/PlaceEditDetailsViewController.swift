@@ -23,26 +23,11 @@ class PlaceEditDetailsViewController: UIViewController
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
-		title = viewModel.place.title ?? ""
+		setupNavBar()
 		latValueLabel.text = viewModel.lat
 		lngValueLabel.text = viewModel.lng
 		titleTextField.text = viewModel.title.value
 		descriptionTextField.text = viewModel.descriptionString.value
-		
-		viewModel.dismissSubject.subscribe(
-			onCompleted: { [weak self] in
-				self?.navigationController?.popViewController(animated: true)
-			})
-			.disposed(by: disposeBag)
-		
-		viewModel.showAlertSubject.subscribe(
-			onNext: { [weak self] errorString in
-				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
-				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-				self?.present(alert, animated: true, completion: nil)
-			})
-			.disposed(by: disposeBag)
 		
 		titleTextField.rx.text
 			.orEmpty
@@ -54,8 +39,28 @@ class PlaceEditDetailsViewController: UIViewController
 			.disposed(by: disposeBag)
 	}
 	
-	@objc func saveTapped()
+	func setupNavBar()
 	{
-		viewModel.saveChanges()
+		let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+		navigationItem.rightBarButtonItem = saveButton
+		saveButton.rx.tap
+			.flatMap { [unowned self] _ -> Observable<PlaceOperationResult> in
+				return self.viewModel.saveChanges()
+			}
+			.subscribe(onNext: { [weak self] result in
+				if result.success
+				{
+					self?.navigationController?.popViewController(animated: true)
+				}
+				else if let errorString = result.errorString
+				{
+					let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+					alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+					self?.present(alert, animated: true, completion: nil)
+				}
+			})
+			.disposed(by: disposeBag)
+		title = viewModel.place.title ?? ""
 	}
+	
 }

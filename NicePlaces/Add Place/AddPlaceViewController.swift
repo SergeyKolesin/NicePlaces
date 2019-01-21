@@ -60,7 +60,7 @@ class AddPlaceViewController: UIViewController
 		let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 		navigationItem.rightBarButtonItem = saveButton
 		saveButton.rx.tap
-			.flatMap { [unowned self] _ -> Observable<SavePlaceResult> in
+			.flatMap { [unowned self] _ -> Observable<PlaceOperationResult> in
 				return self.viewModel.saveNewPlace()
 			}
 			.subscribe(onNext: { [weak self] result in

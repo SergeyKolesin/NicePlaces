@@ -114,6 +114,7 @@ class PlaceManager: NSObject
 				{
 					context.delete(place)
 					try? context.save()
+					observer.onNext(())
 					observer.onCompleted()
 				}
 				else
@@ -154,6 +155,7 @@ class PlaceManager: NSObject
 				existPlace.title = newTitle
 				existPlace.descriptionString = newDescription
 				try? context.save()
+				observer.onNext(())
 				observer.onCompleted()
 			}
 			

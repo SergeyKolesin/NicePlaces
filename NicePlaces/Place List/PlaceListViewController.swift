@@ -21,13 +21,6 @@ class PlaceListViewController: UIViewController
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		viewModel.showAlertSubject.subscribe(
-			onNext: { [weak self] errorString in
-				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
-				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-				self?.present(alert, animated: true, completion: nil)
-			})
-			.disposed(by: disposeBag)
 		viewModel.placeActionSubject.subscribe(onNext: { [weak self] action in
 				switch action.type
 				{
@@ -97,6 +90,15 @@ extension PlaceListViewController: UITableViewDelegate
 		if (editingStyle == .delete)
 		{
 			viewModel.deleteCell(index: indexPath.row)
+				.subscribe(onNext: { [weak self] result in
+					if let errorString = result.errorString
+					{
+						let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+						alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+						self?.present(alert, animated: true, completion: nil)
+					}
+				})
+				.disposed(by: disposeBag)
 		}
 	}
 }

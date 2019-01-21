@@ -26,6 +26,7 @@
 		FE7EA0A521EE2DEF000DD51E /* PlaceEditDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */; };
 		FE7EA0A721EE2E08000DD51E /* PlaceEditDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7EA0A621EE2E08000DD51E /* PlaceEditDetailsViewModel.swift */; };
 		FEA9C11C21F232780067B61B /* PlaceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9C11B21F232780067B61B /* PlaceAction.swift */; };
+		FEA9C11E21F60D3C0067B61B /* PlaceOperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9C11D21F60D3C0067B61B /* PlaceOperationResult.swift */; };
 		FECA58C821E887E4009F3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C721E887E4009F3F05 /* AppDelegate.swift */; };
 		FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58C921E887E4009F3F05 /* ViewController.swift */; };
 		FECA58CD21E887E4009F3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58CB21E887E4009F3F05 /* Main.storyboard */; };
@@ -79,6 +80,7 @@
 		FE7EA0A421EE2DEF000DD51E /* PlaceEditDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditDetailsViewController.swift; sourceTree = "<group>"; };
 		FE7EA0A621EE2E08000DD51E /* PlaceEditDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditDetailsViewModel.swift; sourceTree = "<group>"; };
 		FEA9C11B21F232780067B61B /* PlaceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAction.swift; sourceTree = "<group>"; };
+		FEA9C11D21F60D3C0067B61B /* PlaceOperationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOperationResult.swift; sourceTree = "<group>"; };
 		FECA58C421E887E4009F3F05 /* NicePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NicePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58C721E887E4009F3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FECA58C921E887E4009F3F05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */,
 				FEA9C11A21F22B320067B61B /* Place */,
 				FE72033421EE088E00BC4C0B /* Location */,
+				FEA9C11D21F60D3C0067B61B /* PlaceOperationResult.swift */,
 			);
 			path = NicePlaces;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				FE72032B21EC77C100BC4C0B /* PlaceListViewController.swift in Sources */,
 				FE7EA0A021EE17DA000DD51E /* PlaceCellModel.swift in Sources */,
 				FE7EA0A721EE2E08000DD51E /* PlaceEditDetailsViewModel.swift in Sources */,
+				FEA9C11E21F60D3C0067B61B /* PlaceOperationResult.swift in Sources */,
 				FE7EA0A521EE2DEF000DD51E /* PlaceEditDetailsViewController.swift in Sources */,
 				FE722AF321EF24AB00207659 /* AddPlaceViewController.swift in Sources */,
 				FECA58CA21E887E4009F3F05 /* ViewController.swift in Sources */,

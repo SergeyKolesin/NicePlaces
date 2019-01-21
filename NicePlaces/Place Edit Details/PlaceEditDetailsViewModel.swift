@@ -16,8 +16,6 @@ class PlaceEditDetailsViewModel: NSObject
 	let lat: String
 	let lng: String
 	let descriptionString: Variable<String>
-	let dismissSubject = PublishSubject<Void>()
-	let showAlertSubject = PublishSubject<String>()
 	
 	let disposeBag = DisposeBag()
 	
@@ -32,26 +30,28 @@ class PlaceEditDetailsViewModel: NSObject
 		super.init()
 	}
 	
-	func saveChanges()
+	func saveChanges() -> Observable<PlaceOperationResult>
 	{
-		PlaceManager.shared.updatePlace(place, withTitle: title.value, withDescription: descriptionString.value)
+		return PlaceManager.shared.updatePlace(place, withTitle: title.value, withDescription: descriptionString.value)
 			.observeOn(MainScheduler.instance)
-			.subscribe(onError: { [weak self] error in
-				if let error = error as? CoreDataError
-				{
+			.flatMap({ _ -> Observable<PlaceOperationResult> in
+				return Observable<PlaceOperationResult>.just(PlaceOperationResult(success: true, errorString: nil))
+			})
+			.catchError({ error -> Observable<PlaceOperationResult> in
+				guard let error = error as? CoreDataError else {throw CoreDataError.unknown}
+				return Observable<PlaceOperationResult>.create({ [weak self] observer -> Disposable in
 					switch error
 					{
 					case .alreadyExist:
-						self?.showAlertSubject.onNext(String(format: error.description, (self?.title.value)!))
+						observer.onNext(PlaceOperationResult(success: false, errorString: String(format: error.description, (self?.title.value)!)))
 					case .notFound:
-						self?.showAlertSubject.onNext(String(format: error.description, (self?.place.title)!))
+						observer.onNext(PlaceOperationResult(success: false, errorString: String(format: error.description, (self?.place.title)!)))
 					case .unknown, .nameIsEmpty:
-						self?.showAlertSubject.onNext(error.description)
+						observer.onNext(PlaceOperationResult(success: false, errorString: error.description))
 					}
-				}
-			}, onCompleted: { [weak self] in
-				self?.dismissSubject.onCompleted()
+
+					return Disposables.create()
+				})
 			})
-			.disposed(by: disposeBag)
 	}
 }
