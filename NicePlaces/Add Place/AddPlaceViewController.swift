@@ -44,20 +44,6 @@ class AddPlaceViewController: UIViewController
 			.bind(to: viewModel.lng)
 			.disposed(by: disposeBag)
 		
-		viewModel.dismissSubject.subscribe(
-			onCompleted: { [weak self] in
-				self?.navigationController?.popViewController(animated: true)
-			})
-		.disposed(by: disposeBag)
-		
-		viewModel.showAlertSubject.subscribe(
-			onNext: { [weak self] errorString in
-				let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
-				alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-				self?.present(alert, animated: true, completion: nil)
-			})
-			.disposed(by: disposeBag)
-		
 		Observable.combineLatest(viewModel.lat.asObservable(), viewModel.lng.asObservable()) { (lat, lng) -> CLLocationCoordinate2D in
 			let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
 			return coordinate
@@ -74,9 +60,21 @@ class AddPlaceViewController: UIViewController
 		let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
 		navigationItem.rightBarButtonItem = saveButton
 		saveButton.rx.tap
-			.subscribe { [weak self] _ in
-				self?.viewModel.saveNewPlace()
+			.flatMap { [unowned self] _ -> Observable<SavePlaceResult> in
+				return self.viewModel.saveNewPlace()
 			}
+			.subscribe(onNext: { [weak self] result in
+				if result.success
+				{
+					self?.navigationController?.popViewController(animated: true)
+				}
+				else if let errorString = result.errorString
+				{
+					let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
+					alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+					self?.present(alert, animated: true, completion: nil)
+				}
+			})
 			.disposed(by: disposeBag)
 		title = "New Place"
 	}

@@ -15,8 +15,6 @@ class AddPlaceViewModel
 	let lat: Variable<String>
 	let lng: Variable<String>
 	let descriptionString = Variable<String>("")
-	let dismissSubject = PublishSubject<Void>()
-	let showAlertSubject = PublishSubject<String>()
 	
 	let disposeBag = DisposeBag()
 	
@@ -26,18 +24,26 @@ class AddPlaceViewModel
 		self.lng = Variable<String>(String(format: "%.10f", lng))
 	}
 	
-	func saveNewPlace()
+	func saveNewPlace() -> Observable<SavePlaceResult>
 	{
-		PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(self.lat.value)!, lng: Double(self.lng.value)!)
-			.subscribe(onError: { [weak self] error in
-				if let error = error as? CoreDataError
-				{
-					self?.showAlertSubject.onNext(String(format: error.description, (self?.title.value)!))
-				}
-			}, onCompleted: { [weak self] in
-				self?.dismissSubject.onCompleted()
+		return PlaceManager.shared.addNewPlace(title: title.value, descriptionString: descriptionString.value, lat: Double(self.lat.value)!, lng: Double(self.lng.value)!)
+			.observeOn(MainScheduler.instance)
+			.flatMap({ _ -> Observable<SavePlaceResult> in
+				return Observable<SavePlaceResult>.just(SavePlaceResult(success: true, errorString: nil))
 			})
-			.disposed(by: disposeBag)
+			.catchError({ error -> Observable<SavePlaceResult> in
+				guard let error = error as? CoreDataError else {throw CoreDataError.unknown}
+				return Observable<SavePlaceResult>.create({ [weak self] observer -> Disposable in
+					observer.onNext(SavePlaceResult(success: false, errorString: String(format: error.description, (self?.title.value)!)))
+					return Disposables.create()
+				})
+			})
 	}
+
 }
 
+struct SavePlaceResult
+{
+	let success: Bool
+	let errorString: String?
+}

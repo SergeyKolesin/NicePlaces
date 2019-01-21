@@ -35,6 +35,7 @@ class PlaceEditDetailsViewModel: NSObject
 	func saveChanges()
 	{
 		PlaceManager.shared.updatePlace(place, withTitle: title.value, withDescription: descriptionString.value)
+			.observeOn(MainScheduler.instance)
 			.subscribe(onError: { [weak self] error in
 				if let error = error as? CoreDataError
 				{

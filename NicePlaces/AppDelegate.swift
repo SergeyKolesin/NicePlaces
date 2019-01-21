@@ -34,6 +34,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 		}
 		
+//		let url = URL(string: "http://bit.ly/test-locations")!
+//		let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+//			guard let unwrappedData = data else { return }
+//			do {
+//				let str = try JSONSerialization.jsonObject(with: unwrappedData, options: .allowFragments)
+//				print(str)
+//			} catch {
+//				print("json error: \(error)")
+//			}
+//		}
+//		task.resume()
+		
+		
 		return true
 	}
 

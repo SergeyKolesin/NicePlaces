@@ -45,5 +45,10 @@
 	<string>qwert</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>qwerty</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

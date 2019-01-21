@@ -45,6 +45,7 @@ class PlaceListViewModel: NSObject
 			return
 		}
 		PlaceManager.shared.deletePlace(place)
+			.observeOn(MainScheduler.instance)
 			.subscribe(onError: { [weak self] error in
 				if let error = error as? CoreDataError
 				{

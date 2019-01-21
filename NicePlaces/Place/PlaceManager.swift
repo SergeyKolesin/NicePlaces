@@ -114,15 +114,11 @@ class PlaceManager: NSObject
 				{
 					context.delete(place)
 					try? context.save()
-					DispatchQueue.main.async {
-						observer.onCompleted()
-					}
+					observer.onCompleted()
 				}
 				else
 				{
-					DispatchQueue.main.async {
-						observer.onError(CoreDataError.notFound)
-					}
+					observer.onError(CoreDataError.notFound)
 				}
 			}
 			return disposable
@@ -144,27 +140,21 @@ class PlaceManager: NSObject
 			
 			self.persistentContainer.performBackgroundTask { context in
 				guard let existPlace = Place.fetchPlace(context: context, title: title) else {
-					DispatchQueue.main.async {
-						observer.onError(CoreDataError.notFound)
-					}
+					observer.onError(CoreDataError.notFound)
 					return
 				}
 				if let placeWithNewTitle = Place.fetchPlace(context: context, title: newTitle)
 				{
 					if placeWithNewTitle != existPlace
 					{
-						DispatchQueue.main.async {
-							observer.onError(CoreDataError.alreadyExist)
-						}
+						observer.onError(CoreDataError.alreadyExist)
 						return
 					}
 				}
 				existPlace.title = newTitle
 				existPlace.descriptionString = newDescription
 				try? context.save()
-				DispatchQueue.main.async {
-					observer.onCompleted()
-				}
+				observer.onCompleted()
 			}
 			
 			return disposable
@@ -183,15 +173,12 @@ class PlaceManager: NSObject
 			self.persistentContainer.performBackgroundTask { context in
 				if let _ = Place.fetchPlace(context: context, title: title)
 				{
-					DispatchQueue.main.async {
-						observer.onError(CoreDataError.alreadyExist)
-					}
+					observer.onError(CoreDataError.alreadyExist)
 					return
 				}
 				Place.addNewPlace(context: context, title: title, descriptionString: descriptionString, lat: lat, lng: lng)
-				DispatchQueue.main.async {
-					observer.onCompleted()
-				}
+				observer.onNext(())
+				observer.onCompleted()
 			}
 			return disposable
 		})
