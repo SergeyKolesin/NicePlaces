@@ -45,13 +45,12 @@ class AddPlaceViewController: UIViewController
 			.disposed(by: disposeBag)
 		
 		Observable.combineLatest(viewModel.lat.asObservable(), viewModel.lng.asObservable()) { (lat, lng) -> CLLocationCoordinate2D in
-			let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
-			return coordinate
+				let coordinate = CLLocationCoordinate2D(latitude: Double(lat)!, longitude: Double(lng)!)
+				return coordinate
 			}
-			.subscribe { [weak self] event in
-				guard let coordinate = event.element else {return}
+			.subscribe(onNext: { [weak self] coordinate in
 				self?.updateMap(coordinate)
-			}
+			})
 			.disposed(by: disposeBag)
 	}
 	
