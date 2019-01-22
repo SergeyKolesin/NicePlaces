@@ -21,25 +21,38 @@ class PlaceListViewController: UIViewController
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		viewModel.placeActionSubject.subscribe(onNext: { [weak self] action in
-				self?.tableView.beginUpdates()
-				self?.tableView.setEditing(false, animated: false)
+		viewModel.placeActionSubject.subscribe(onNext: { [weak self] actions in
+			var insertIndexes = [IndexPath]()
+			var deleteIndexes = [IndexPath]()
+			var updateIndexes = [IndexPath]()
+			for action in actions
+			{
 				switch action.type
 				{
 				case .insert:
-					self?.tableView.insertRows(at: [action.newIndexPath!], with: .automatic)
+					insertIndexes.append(action.newIndexPath!)
 					print("insert")
 				case .delete:
-					self?.tableView.deleteRows(at: [action.indexPath!], with: .automatic)
+					deleteIndexes.append(action.indexPath!)
 					print("delete")
 				case .move:
+					self?.tableView.beginUpdates()
 					self?.tableView.moveRow(at: action.indexPath!, to: action.newIndexPath!)
+					self?.tableView.endUpdates()
 					print("move")
 				case .update:
-					self?.tableView.reloadRows(at: [action.indexPath!], with: .automatic)
+					updateIndexes.append(action.indexPath!)
 					print("update")
 				}
-				self?.tableView.endUpdates()
+			}
+			
+			self?.tableView.beginUpdates()
+			self?.tableView.insertRows(at: insertIndexes, with: .automatic)
+			self?.tableView.deleteRows(at: deleteIndexes, with: .automatic)
+			self?.tableView.reloadRows(at: updateIndexes, with: .automatic)
+			self?.tableView.setEditing(false, animated: false)
+			self?.tableView.endUpdates()
+			
 			})
 			.disposed(by: disposeBag)
 	}
@@ -66,8 +79,8 @@ extension PlaceListViewController: UITableViewDelegate
 {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
 	{
-		let model = viewModel.places.value[indexPath.row]
-		return 75.0 + model.descriptionString.height(constraintedWidth: self.tableView.frame.size.width, font: UIFont.systemFont(ofSize: 17))
+		guard let model = viewModel.cellModel(for: indexPath.row, sync: true) else {return 75.0}
+		return 75.0 + model.descriptionString.value.height(constraintedWidth: self.tableView.frame.size.width, font: UIFont.systemFont(ofSize: 17))
 	}
 	
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -102,21 +115,17 @@ extension PlaceListViewController: UITableViewDataSource
 {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		return viewModel.places.value.count
+		return viewModel.placeCounter.value
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 	{
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath) as? PlaceCell else {return UITableViewCell()}
 		
-		let model = viewModel.places.value[indexPath.row]
-		cell.titleLabel.text = model.title
-		cell.descriptionLabel.text = model.descriptionString
-		cell.latValueLabel.text = model.lat
-		cell.lngValueLabel.text = model.lng
+		let model = viewModel.cellModel(for: indexPath.row, sync: false)
+		cell.model = model
 		
 		return cell
 	}
-	
 	
 }

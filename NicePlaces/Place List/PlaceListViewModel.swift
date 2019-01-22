@@ -13,23 +13,15 @@ class PlaceListViewModel: NSObject
 {
 	let disposeBag = DisposeBag()
 	var places = Variable<[PlaceCellModel]>([PlaceCellModel]())
-	let placeActionSubject = PublishSubject<PlaceAction>()
+	var placeCounter = Variable<Int>(0)
+	let placeActionSubject = PublishSubject<[PlaceAction]>()
 	
 	override init()
 	{
 		super.init()
 		PlaceManager.shared.places.asObservable()
-			.map({ placeList -> [PlaceCellModel] in
-				return placeList.map({ place -> PlaceCellModel in
-					let title = place.title ?? ""
-					let lat = String(format: "%.10f", place.lat)
-					let lng = String(format: "%.10f", place.lng)
-					let descriptionString = place.descriptionString ?? ""
-					
-					return PlaceCellModel(title: title, lat: lat, lng: lng, descriptionString: descriptionString)
-				})
-			})
-			.bind(to: places)
+			.map { $0.count }
+			.bind(to: placeCounter)
 			.disposed(by: disposeBag)
 		
 		PlaceManager.shared.placeActionEmitter
@@ -63,6 +55,27 @@ class PlaceListViewModel: NSObject
 			return PlaceManager.shared.places.value[index]
 		}
 		return nil
+	}
+	
+	func cellModel(for index: Int, sync: Bool) -> PlaceCellModel?
+	{
+		let cellModel = PlaceCellModel()
+		let block = { [weak self, cellModel] in
+			guard let place = self?.place(for: index) else {return}
+			cellModel.title.value = place.title ?? ""
+			cellModel.lat.value = String(format: "%.10f", place.lat)
+			cellModel.lng.value = String(format: "%.10f", place.lng)
+			cellModel.descriptionString.value = place.descriptionString ?? ""
+		}
+		if sync
+		{
+			block()
+		}
+		else
+		{
+			DispatchQueue.global(qos: .background).async(execute: block)
+		}
+		return cellModel
 	}
 	
 }

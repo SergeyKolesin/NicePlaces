@@ -65,11 +65,11 @@ class MapViewController: UIViewController
 	
 	func configPins()
 	{
-		mapView.removeAnnotations(mapView.annotations)
-		for place in viewModel.places.value
-		{
-			mapView.addAnnotation(place)
-		}
+//		mapView.removeAnnotations(mapView.annotations)
+//		for place in viewModel.places.value
+//		{
+//			mapView.addAnnotation(place)
+//		}
 	}
 	
 	@objc func longTapOnMap(sender: UILongPressGestureRecognizer)

@@ -7,20 +7,13 @@
 //
 
 import Foundation
+import RxSwift
 
 class PlaceCellModel: NSObject
 {
-	var title: String
-	var lat: String
-	var lng: String
-	var descriptionString: String
-	
-	init(title: String, lat: String, lng: String, descriptionString: String)
-	{
-		self.title = title
-		self.lat = lat
-		self.lng = lng
-		self.descriptionString = descriptionString
-		super.init()
-	}
+	let title = Variable<String>("")
+	let lat = Variable<String>("")
+	let lng = Variable<String>("")
+	let descriptionString = Variable<String>("")
+	let disposeBag = DisposeBag()
 }

@@ -52,6 +52,7 @@ class AddPlaceViewController: UIViewController
 				self?.updateMap(coordinate)
 			})
 			.disposed(by: disposeBag)
+//		PlaceManager.shared.generatePlace(1000, name: "qwerty")
 	}
 	
 	func setupNavBar()

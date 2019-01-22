@@ -19,8 +19,9 @@ class PlaceManager: NSObject
 	lazy var places: Variable<[Place]> = {
 		return Variable<[Place]>(self.fetchedResultsController.fetchedObjects ?? [Place]())
 	}()
+	var actions = [PlaceAction]()
 	
-	let placeActionEmitter = PublishSubject<PlaceAction>()
+	let placeActionEmitter = PublishSubject<[PlaceAction]>()
 	
 	private let persistentContainer = NSPersistentContainer(name: "NicePlaces")
 	
@@ -191,6 +192,31 @@ class PlaceManager: NSObject
 			return disposable
 		})
 	}
+	
+	func generatePlace(_ amount: UInt, name: String)
+	{
+		self.persistentContainer.performBackgroundTask { context in
+			for index in 0..<amount
+			{
+				let title = "\(name)\(index)"
+				let rest = index % 100
+				let value = index / 100
+				let delta = 0.01
+				let lat = self.coordinate.value.latitude + Double(rest)*delta
+				let lng = self.coordinate.value.longitude + Double(value)*delta
+				
+				guard let entity = NSEntityDescription.entity(forEntityName: "Place", in: context) else {return}
+				guard let place = NSManagedObject(entity: entity, insertInto: context) as? Place else {return}
+				place.title = title
+				place.lat = lat
+				place.lng = lng
+				place.descriptionString = ""
+				place.distance = PlaceManager.shared.calculateCurrentDistance(for: place)
+			}
+			try? context.save()
+		}
+		
+	}
 }
 
 enum CoreDataError: Error
@@ -221,9 +247,16 @@ enum CoreDataError: Error
 
 extension PlaceManager: NSFetchedResultsControllerDelegate
 {
-	public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+	
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+	{
+		actions = [PlaceAction]()
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
 	{
 		places.value = fetchedResultsController.fetchedObjects ?? [Place]()
+		placeActionEmitter.onNext(actions)
 	}
 	
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
@@ -231,7 +264,6 @@ extension PlaceManager: NSFetchedResultsControllerDelegate
 		guard let _ = anObject as? Place else {return}
 		guard let actionType = PlaceActionType(rawValue: type.rawValue - 1) else {return}
 		let action = PlaceAction(type: actionType, indexPath: indexPath, newIndexPath: newIndexPath)
-		places.value = fetchedResultsController.fetchedObjects ?? [Place]()
-		placeActionEmitter.onNext(action)
+		actions.append(action)
 	}
 }
