@@ -8,44 +8,28 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	let disposeBag = DisposeBag()
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
 	{
-		if PlaceManager.shared.places.value.count == 0
-		{
-			guard let path = Bundle.main.path(forResource: "DefaultPlaces", ofType: "json") else {return false}
-			do
-			{
-				let data = try Data(contentsOf: URL(fileURLWithPath: path))
-				let jsonResult = try JSONSerialization.jsonObject(with: data)
-				
-				guard let dictionary = jsonResult as? Dictionary<String, Any> else {return false}
-				PlaceManager.shared.saveDefaultPlaces(dictionary: dictionary)
-			}
-			catch
-			{
-				print("cannot read file")
-			}
-		}
-		
-//		let url = URL(string: "http://bit.ly/test-locations")!
-//		let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-//			guard let unwrappedData = data else { return }
-//			do {
-//				let str = try JSONSerialization.jsonObject(with: unwrappedData, options: .allowFragments)
-//				print(str)
-//			} catch {
-//				print("json error: \(error)")
-//			}
-//		}
-//		task.resume()
-		
+		PlaceManager.shared.places.asObservable()
+			.take(1)
+			.filter { $0.count == 0 }
+			.flatMap { _ in NetworkManager.shared.getDefaultPlacesJson() }
+			.flatMap { dictionary in PlaceManager.shared.saveDefaultPlaces(dictionary: dictionary) }
+			.subscribe(onNext: { _ in
+				print("Default places are saved")
+			},
+					   onError: { error in
+				print("Cannot save default place. Error: \(error.localizedDescription)")
+			})
+			.disposed(by: disposeBag)
 		
 		return true
 	}

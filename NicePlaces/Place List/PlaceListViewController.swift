@@ -22,29 +22,24 @@ class PlaceListViewController: UIViewController
 		tableView.dataSource = self
 		
 		viewModel.placeActionSubject.subscribe(onNext: { [weak self] action in
+				self?.tableView.beginUpdates()
+				self?.tableView.setEditing(false, animated: false)
 				switch action.type
 				{
 				case .insert:
-					self?.tableView.beginUpdates()
 					self?.tableView.insertRows(at: [action.newIndexPath!], with: .automatic)
-					self?.tableView.endUpdates()
 					print("insert")
 				case .delete:
-					self?.tableView.beginUpdates()
 					self?.tableView.deleteRows(at: [action.indexPath!], with: .automatic)
-					self?.tableView.endUpdates()
 					print("delete")
 				case .move:
-					self?.tableView.beginUpdates()
 					self?.tableView.moveRow(at: action.indexPath!, to: action.newIndexPath!)
-					self?.tableView.endUpdates()
 					print("move")
 				case .update:
-					self?.tableView.beginUpdates()
 					self?.tableView.reloadRows(at: [action.indexPath!], with: .automatic)
-					self?.tableView.endUpdates()
 					print("update")
 				}
+				self?.tableView.endUpdates()
 			})
 			.disposed(by: disposeBag)
 	}

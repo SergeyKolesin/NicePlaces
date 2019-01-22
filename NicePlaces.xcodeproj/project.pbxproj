@@ -35,6 +35,7 @@
 		FECA58D521E887E5009F3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECA58D321E887E5009F3F05 /* LaunchScreen.storyboard */; };
 		FECA58E021E887E5009F3F05 /* NicePlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58DF21E887E5009F3F05 /* NicePlacesTests.swift */; };
 		FECA58EB21E887E5009F3F05 /* NicePlacesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA58EA21E887E5009F3F05 /* NicePlacesUITests.swift */; };
+		FEE58EFE21F72E7300DD79A6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE58EFD21F72E7300DD79A6 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		FECA58E621E887E5009F3F05 /* NicePlacesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NicePlacesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA58EA21E887E5009F3F05 /* NicePlacesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicePlacesUITests.swift; sourceTree = "<group>"; };
 		FECA58EC21E887E5009F3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEE58EFD21F72E7300DD79A6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 				FE72032E21ECA1B000BC4C0B /* DefaultPlaces.json */,
 				FEA9C11A21F22B320067B61B /* Place */,
 				FE72033421EE088E00BC4C0B /* Location */,
+				FEE58EFC21F72E4700DD79A6 /* Networking */,
 				FEA9C11D21F60D3C0067B61B /* PlaceOperationResult.swift */,
 			);
 			path = NicePlaces;
@@ -273,6 +276,14 @@
 				FECA58EC21E887E5009F3F05 /* Info.plist */,
 			);
 			path = NicePlacesUITests;
+			sourceTree = "<group>";
+		};
+		FEE58EFC21F72E4700DD79A6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				FEE58EFD21F72E7300DD79A6 /* NetworkManager.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,6 +513,7 @@
 				FE72032921EC772A00BC4C0B /* MapViewModel.swift in Sources */,
 				FE72033121ECA53800BC4C0B /* Place.swift in Sources */,
 				FECA58D021E887E4009F3F05 /* NicePlaces.xcdatamodeld in Sources */,
+				FEE58EFE21F72E7300DD79A6 /* NetworkManager.swift in Sources */,
 				FEA9C11C21F232780067B61B /* PlaceAction.swift in Sources */,
 				FE72033821EE109D00BC4C0B /* PlaceCell.swift in Sources */,
 				FE72033321ECE2FE00BC4C0B /* PlaceManager.swift in Sources */,

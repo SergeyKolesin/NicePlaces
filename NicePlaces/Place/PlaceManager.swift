@@ -50,7 +50,7 @@ class PlaceManager: NSObject
 			.disposed(by: disposeBag)
 		
 		LocationManager.shared.coordinate
-			.throttle(1, scheduler: MainScheduler.instance)
+			.throttle(5, scheduler: MainScheduler.instance)
 			.subscribe(onNext: { [weak self] coordinate in
 				
 				let titles = PlaceManager.shared.places.value.compactMap({ place -> String? in
@@ -90,18 +90,24 @@ class PlaceManager: NSObject
 		return distance
 	}
 	
-	func saveDefaultPlaces(dictionary: [String : Any])
+	func saveDefaultPlaces(dictionary: [String : Any]) -> Observable<Void>
 	{
-		persistentContainer.performBackgroundTask { context in
-			do
-			{
-				try Place.saveDefaultPlaces(dictionaty: dictionary, context: context)
+		return Observable.create({ [weak self] observer -> Disposable in
+			self?.persistentContainer.performBackgroundTask { context in
+				do
+				{
+					try Place.saveDefaultPlaces(dictionaty: dictionary, context: context)
+					observer.onNext(())
+					observer.onCompleted()
+				}
+				catch
+				{
+					print("Core Data is Failed")
+					observer.onError(error)
+				}
 			}
-			catch
-			{
-				print("Core Data is Failed")
-			}
-		}
+			return Disposables.create()
+		})
 	}
 	
 	func deletePlace(_ place: Place) -> Observable<Void>
