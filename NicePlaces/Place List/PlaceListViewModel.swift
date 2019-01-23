@@ -14,7 +14,7 @@ class PlaceListViewModel: NSObject
 	let disposeBag = DisposeBag()
 	var places = Variable<[PlaceCellModel]>([PlaceCellModel]())
 	var placeCounter = Variable<Int>(0)
-	let placeActionSubject = PublishSubject<[PlaceAction]>()
+	let placeActionSubject = PublishSubject<([IndexPath], [IndexPath], [IndexPath])>()
 	
 	override init()
 	{
@@ -25,6 +25,40 @@ class PlaceListViewModel: NSObject
 			.disposed(by: disposeBag)
 		
 		PlaceManager.shared.placeActionEmitter
+			.flatMap({ actions -> Observable<([IndexPath], [IndexPath], [IndexPath])> in
+				return Observable.create({ observer -> Disposable in
+					var insertIndexes = [IndexPath]()
+					var deleteIndexes = [IndexPath]()
+					var updateIndexes = [IndexPath]()
+					for action in actions
+					{
+						switch action.type
+						{
+						case .insert:
+							insertIndexes.append(action.newIndexPath!)
+							print("insert")
+						case .delete:
+							deleteIndexes.append(action.indexPath!)
+							print("delete")
+						case .move, .update:
+							if !updateIndexes.contains(action.indexPath!)
+							{
+								updateIndexes.append(action.indexPath!)
+							}
+							if let newIndexPath = action.newIndexPath
+							{
+								if !updateIndexes.contains(newIndexPath)
+								{
+									updateIndexes.append(newIndexPath)
+								}
+							}
+						}
+					}
+					observer.onNext((insertIndexes, deleteIndexes, updateIndexes))
+					observer.onCompleted()
+					return Disposables.create()
+				})
+			})
 			.bind(to: placeActionSubject)
 			.disposed(by: disposeBag)
 	}

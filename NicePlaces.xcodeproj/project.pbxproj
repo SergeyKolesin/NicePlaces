@@ -239,11 +239,11 @@
 		FECA58C621E887E4009F3F05 /* NicePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				FE72032321EC767600BC4C0B /* Map */,
+				FE72032421EC767E00BC4C0B /* Place List */,
+				FE72032521EC769300BC4C0B /* Place Edit Details */,
 				FE722AF121EF248B00207659 /* Add Place */,
 				FE7EA0A121EE2336000DD51E /* Helpers */,
-				FE72032521EC769300BC4C0B /* Place Edit Details */,
-				FE72032421EC767E00BC4C0B /* Place List */,
-				FE72032321EC767600BC4C0B /* Map */,
 				FECA58C721E887E4009F3F05 /* AppDelegate.swift */,
 				FECA58C921E887E4009F3F05 /* ViewController.swift */,
 				FECA58CB21E887E4009F3F05 /* Main.storyboard */,

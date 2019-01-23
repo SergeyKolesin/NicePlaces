@@ -21,30 +21,7 @@ class PlaceListViewController: UIViewController
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		viewModel.placeActionSubject.subscribe(onNext: { [weak self] actions in
-			var insertIndexes = [IndexPath]()
-			var deleteIndexes = [IndexPath]()
-			var updateIndexes = [IndexPath]()
-			for action in actions
-			{
-				switch action.type
-				{
-				case .insert:
-					insertIndexes.append(action.newIndexPath!)
-					print("insert")
-				case .delete:
-					deleteIndexes.append(action.indexPath!)
-					print("delete")
-				case .move:
-					self?.tableView.beginUpdates()
-					self?.tableView.moveRow(at: action.indexPath!, to: action.newIndexPath!)
-					self?.tableView.endUpdates()
-					print("move")
-				case .update:
-					updateIndexes.append(action.indexPath!)
-					print("update")
-				}
-			}
+		viewModel.placeActionSubject.subscribe(onNext: { [weak self] (insertIndexes, deleteIndexes, updateIndexes) in
 			
 			self?.tableView.beginUpdates()
 			self?.tableView.insertRows(at: insertIndexes, with: .automatic)
