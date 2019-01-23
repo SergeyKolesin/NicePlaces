@@ -261,9 +261,9 @@ extension PlaceManager: NSFetchedResultsControllerDelegate
 	
 	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
 	{
-		guard let _ = anObject as? Place else {return}
+		guard let place = anObject as? Place else {return}
 		guard let actionType = PlaceActionType(rawValue: type.rawValue - 1) else {return}
-		let action = PlaceAction(type: actionType, indexPath: indexPath, newIndexPath: newIndexPath)
+		let action = PlaceAction(place: place, type: actionType, indexPath: indexPath, newIndexPath: newIndexPath)
 		actions.append(action)
 	}
 }

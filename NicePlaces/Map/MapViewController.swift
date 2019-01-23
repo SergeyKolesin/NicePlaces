@@ -32,11 +32,21 @@ class MapViewController: UIViewController
 			})
 			.disposed(by: disposeBag)
 		
-		viewModel.places.asObservable()
-			.subscribe { [weak self] _ in
-				self?.configPins()
-			}
+		viewModel.annotationChanges
+			.observeOn(MainScheduler.instance)
+			.subscribe(onNext: { [weak self] (insertAnnotations, deleteAnnotations) in
+				for annotation in insertAnnotations
+				{
+					self?.mapView.addAnnotation(annotation)
+				}
+				for annotation in deleteAnnotations
+				{
+					self?.mapView.removeAnnotation(annotation)
+				}
+			})
 			.disposed(by: disposeBag)
+		
+		self.mapView.addAnnotations(viewModel.places.value)
 	}
 	
 	override func viewDidAppear(_ animated: Bool)
@@ -60,15 +70,6 @@ class MapViewController: UIViewController
 			guard let place = sender as? Place else {return}
 			guard let vc = segue.destination as? PlaceEditDetailsViewController else {return}
 			vc.viewModel = PlaceEditDetailsViewModel(place: place)
-		}
-	}
-	
-	func configPins()
-	{
-		mapView.removeAnnotations(mapView.annotations)
-		for place in viewModel.places.value
-		{
-			mapView.addAnnotation(place)
 		}
 	}
 	

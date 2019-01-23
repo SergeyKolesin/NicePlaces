@@ -21,7 +21,9 @@ class PlaceListViewController: UIViewController
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		viewModel.placeActionSubject.subscribe(onNext: { [weak self] (insertIndexes, deleteIndexes, updateIndexes) in
+		viewModel.placeActionSubject
+			.observeOn(MainScheduler.instance)
+			.subscribe(onNext: { [weak self] (insertIndexes, deleteIndexes, updateIndexes) in
 			
 			self?.tableView.beginUpdates()
 			self?.tableView.insertRows(at: insertIndexes, with: .automatic)

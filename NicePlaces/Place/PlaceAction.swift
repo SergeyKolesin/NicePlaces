@@ -10,6 +10,7 @@ import Foundation
 
 struct PlaceAction
 {
+	let place: Place
 	let type: PlaceActionType
 	let indexPath: IndexPath?
 	let newIndexPath: IndexPath?
