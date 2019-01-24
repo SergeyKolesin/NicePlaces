@@ -111,9 +111,9 @@ class PlaceManager: NSObject
 		})
 	}
 	
-	func deletePlace(_ place: Place) -> Observable<Void>
+	func deletePlace(_ place: Place) -> Single<Void>
 	{
-		return Observable.create({ observer in
+		return Single.create { single in
 			let disposable = Disposables.create()
 			let title = place.title!
 			self.persistentContainer.performBackgroundTask { context in
@@ -121,16 +121,15 @@ class PlaceManager: NSObject
 				{
 					context.delete(place)
 					try? context.save()
-					observer.onNext(())
-					observer.onCompleted()
+					single(.success(()))
 				}
 				else
 				{
-					observer.onError(CoreDataError.notFound)
+					single(.error(CoreDataError.notFound))
 				}
 			}
 			return disposable
-		})
+		}
 	}
 	
 	func updatePlace(_ place: Place, withTitle newTitle: String, withDescription newDescription: String) -> Observable<Void>

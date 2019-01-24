@@ -77,7 +77,7 @@ extension PlaceListViewController: UITableViewDelegate
 		if (editingStyle == .delete)
 		{
 			viewModel.deleteCell(index: indexPath.row)
-				.subscribe(onNext: { [weak self] result in
+				.subscribe(onSuccess: { [weak self] result in
 					if let errorString = result.errorString
 					{
 						let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertController.Style.alert)
